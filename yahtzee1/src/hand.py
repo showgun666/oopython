@@ -1,5 +1,5 @@
 import random
-from die import Die
+from .die import Die
 class Hand:
     def __init__(self, dice_values=None):
         if dice_values is None:

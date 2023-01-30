@@ -14,7 +14,6 @@ try:
 
 except Exception as e:
     import traceback
-
     print("Content-Type: text/plain;charset=utf-8")
     print("")
     print(traceback.format_exc())

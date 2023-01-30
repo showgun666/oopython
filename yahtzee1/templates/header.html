@@ -18,9 +18,15 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav">
-                <li {%- if request.path == "/" %} class="active" {% endif %}><a href="{{ url_for('index') }}">Welcome</a></li>
-                <li {%- if request.path == "/main" %} class="active" {% endif %}><a href="{{ url_for('main') }}">Play</a></li>
-                <li {%- if request.path == "/about" %} class="active" {% endif %}><a href="{{ url_for('about') }}">About</a></li>
+                <div class ="nav-button">
+                    <li {%- if request.path == "/" %} class="active" {% endif %}><a href="{{ url_for('index') }}">Welcome</a></li>
+                </div>
+                <div class ="nav-button">
+                    <li {%- if request.path == "/main" %} class="active" {% endif %}><a href="{{ url_for('main') }}">Play</a></li>
+                </div>
+                <div class ="nav-button">
+                    <li {%- if request.path == "/about" %} class="active" {% endif %}><a href="{{ url_for('about') }}">About</a></li>
+                </div>
             </ul>
         </div>
     </nav>

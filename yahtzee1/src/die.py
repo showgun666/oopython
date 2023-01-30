@@ -1,6 +1,7 @@
+"""
+Class Die:
+"""
 import random
-
-"""Die Class"""
 class Die:
     """
     Class die som inehåller defoult värde MIN_ROLL_VALUE = 1
@@ -9,7 +10,7 @@ class Die:
     MIN_ROLL_VALUE = 1
     MAX_ROLL_VALUE = 6
     def __init__(self, value=None):
-        if value is None:  
+        if value is None:
             self.value = random.randint(Die.MIN_ROLL_VALUE, Die.MAX_ROLL_VALUE)
         elif value < Die.MIN_ROLL_VALUE:
             self.value = Die.MIN_ROLL_VALUE
@@ -17,8 +18,10 @@ class Die:
             self.value = Die.MAX_ROLL_VALUE
         else:
             self.value = value
-
     def get_name(self, value):
+        """
+        get name from value:
+        """
         if value == 1:
             self.value = "one"
         elif value == 2:
@@ -31,13 +34,19 @@ class Die:
             self.value = "five"
         else:
             self.value = "six"
-
     def get_value(self):
+        """
+        Return the value of the Die
+        """
         return self.value
-        
-    def roll(self): 
+    def roll(self):
+        """
+        Method att kasta tärningar som retunerar värde mellan 1 och 6
+        """
         self.value = random.randint(Die.MIN_ROLL_VALUE, Die.MAX_ROLL_VALUE)
-    
     def __str__(self):
-        return str(self.value)                 
-
+        """
+        konvertera till string
+        """
+        return str(self.value)
+        

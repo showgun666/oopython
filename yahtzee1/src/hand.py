@@ -12,7 +12,7 @@ class Hand:
             for die in self.dice:
                 die.roll()
         else:
-            for index in indexes:
+            for index in range(indexes):
                 self.dice[index].roll()
 
     def __str__(self):

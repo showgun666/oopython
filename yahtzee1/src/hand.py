@@ -1,7 +1,7 @@
 """
 class Hand:
 """
-from .die import Die
+from src.die import Die
 class Hand:
     """class Hand:"""
     def __init__(self, dice_values=None):
@@ -18,7 +18,7 @@ class Hand:
             for die in self.dice:
                 die.roll() #kasta alla tärningar
         else:
-            for index in range(indexes):
+            for index in indexes:
                 self.dice[index].roll()
 
     def __str__(self):

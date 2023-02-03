@@ -23,15 +23,15 @@ class Die:
         get name from value:
         """
         # Check value of die and return value as one word string.
-        if self._value == 1:
+        if self.get_value() == 1:
             name = "one"
-        elif self._value == 2:
+        elif self.get_value() == 2:
             name = "two"
-        elif self._value == 3:
+        elif self.get_value() == 3:
             name = "three"
-        elif self._value == 4:
+        elif self.get_value() == 4:
             name = "four"
-        elif self._value == 5:
+        elif self.get_value() == 5:
             name = "five"
         else:
             name = "six"

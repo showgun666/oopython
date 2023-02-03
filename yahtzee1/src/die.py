@@ -9,31 +9,33 @@ class Die:
     """
     MIN_ROLL_VALUE = 1
     MAX_ROLL_VALUE = 6
-    def __init__(self, _value=None):
-        if _value is None:
+    def __init__(self, value=None):
+        if value is None:
             self._value = random.randint(Die.MIN_ROLL_VALUE, Die.MAX_ROLL_VALUE)
-        elif _value < Die.MIN_ROLL_VALUE:
+        elif value < Die.MIN_ROLL_VALUE:
             self._value = Die.MIN_ROLL_VALUE
-        elif _value > Die.MAX_ROLL_VALUE:
+        elif value > Die.MAX_ROLL_VALUE:
             self._value = Die.MAX_ROLL_VALUE
         else:
-            self.value = value
-    def get_name(self, _value):
+            self._value = value
+    def get_name(self):
         """
         get name from value:
         """
-        if _value == 1:
-            self._value = "one"
-        elif _value == 2:
-            self._value = "two"
-        elif _value == 3:
-            self._value = "three"
-        elif _value == 4:
-            self._value = "four"
-        elif _value == 5:
-            self._value = "five"
+        # Check value of die and return value as one word string.
+        if self._value == 1:
+            name = "one"
+        elif self._value == 2:
+            name = "two"
+        elif self._value == 3:
+            name = "three"
+        elif self._value == 4:
+            name = "four"
+        elif self._value == 5:
+            name = "five"
         else:
-            self._value = "six"
+            name = "six"
+        return name
     def get_value(self):
         """
         Return the value of the Die

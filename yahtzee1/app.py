@@ -19,7 +19,7 @@ def main():
     # Create a hand.
     gamehand = Hand()
     # Rolls 5 dice
-    gamehand.roll(5)
+    gamehand.roll()
     # Get values of each die
     d1 = gamehand.dice[0].get_value()
     d2 = gamehand.dice[1].get_value()

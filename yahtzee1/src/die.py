@@ -11,11 +11,11 @@ class Die:
     MAX_ROLL_VALUE = 6
     def __init__(self, value=None):
         if value is None:
-            self._value = random.randint(Die.MIN_ROLL_VALUE, Die.MAX_ROLL_VALUE)
-        elif value < Die.MIN_ROLL_VALUE:
-            self._value = Die.MIN_ROLL_VALUE
-        elif value > Die.MAX_ROLL_VALUE:
-            self._value = Die.MAX_ROLL_VALUE
+            self._value = random.randint(self.MIN_ROLL_VALUE, self.MAX_ROLL_VALUE)
+        elif value < self.MIN_ROLL_VALUE:
+            self._value = self.MIN_ROLL_VALUE
+        elif value > self.MAX_ROLL_VALUE:
+            self._value = self.MAX_ROLL_VALUE
         else:
             self._value = value
     def get_name(self):
@@ -45,7 +45,7 @@ class Die:
         """
         Method att kasta tärningar som retunerar värde mellan 1 och 6
         """
-        self._value = random.randint(Die.MIN_ROLL_VALUE, Die.MAX_ROLL_VALUE)
+        self._value = random.randint(self.MIN_ROLL_VALUE, self.MAX_ROLL_VALUE)
     def __str__(self):
         """
         konvertera till string

@@ -1,0 +1,85 @@
+{% include 'header.html' %}
+
+<div class="container" role="main">
+    <div class="page-header">
+        <div class="row">
+            <div class="dice-box" id="dice1">
+                {% if dice1 == 1 %}
+                    <img class="dice-image" src="{{ url_for('static', filename='img/one.png') }}" alt="Dice with value 1">
+                {% elif dice1 == 2 %}
+                    <img class="dice-image" src="{{ url_for('static', filename='img/two.png') }}" alt="Dice with value 2">
+                {% elif dice1 == 3 %}
+                    <img class="dice-image" src="{{ url_for('static', filename='img/three.png') }}" alt="Dice with value 3">
+                {% elif dice1 == 4 %}
+                    <img class="dice-image" src="{{ url_for('static', filename='img/four.png') }}" alt="Dice with value 4">
+                {% elif dice1 == 5 %}
+                    <img class="dice-image" src="{{ url_for('static', filename='img/five.png') }}" alt="Dice with value 5">
+                {% elif dice1 == 6 %}
+                    <img class="dice-image" src="{{ url_for('static', filename='img/six.png') }}" alt="Dice with value 6">
+                {% endif %}
+            </div>
+            <div class="dice-box" id="dice2">
+                {% if dice2 == 1 %}
+                    <img class="dice-image" src="{{ url_for('static', filename='img/one.png') }}" alt="Dice with value 1">
+                {% elif dice2 == 2 %}
+                    <img class="dice-image" src="{{ url_for('static', filename='img/two.png') }}" alt="Dice with value 2">
+                {% elif dice2 == 3 %}
+                    <img class="dice-image" src="{{ url_for('static', filename='img/three.png') }}" alt="Dice with value 3">
+                {% elif dice2 == 4 %}
+                    <img class="dice-image" src="{{ url_for('static', filename='img/four.png') }}" alt="Dice with value 4">
+                {% elif dice2 == 5 %}
+                    <img class="dice-image" src="{{ url_for('static', filename='img/five.png') }}" alt="Dice with value 5">
+                {% elif dice2 == 6 %}
+                    <img class="dice-image" src="{{ url_for('static', filename='img/six.png') }}" alt="Dice with value 6">
+                {% endif %}
+            </div>
+            <div class="dice-box" id="dice3">
+                {% if dice3 == 1 %}
+                    <img class="dice-image" src="{{ url_for('static', filename='img/one.png') }}" alt="Dice with value 1">
+                {% elif dice3 == 2 %}
+                    <img class="dice-image" src="{{ url_for('static', filename='img/two.png') }}" alt="Dice with value 2">
+                {% elif dice3 == 3 %}
+                    <img class="dice-image" src="{{ url_for('static', filename='img/three.png') }}" alt="Dice with value 3">
+                {% elif dice3 == 4 %}
+                    <img class="dice-image" src="{{ url_for('static', filename='img/four.png') }}" alt="Dice with value 4">
+                {% elif dice3 == 5 %}
+                    <img class="dice-image" src="{{ url_for('static', filename='img/five.png') }}" alt="Dice with value 5">
+                {% elif dice3 == 6 %}
+                    <img class="dice-image" src="{{ url_for('static', filename='img/six.png') }}" alt="Dice with value 6">
+                {% endif %}
+            </div>
+            <div class="dice-box" id="dice4">
+                {% if dice4 == 1 %}
+                    <img class="dice-image" src="{{ url_for('static', filename='img/one.png') }}" alt="Dice with value 1">
+                {% elif dice4 == 2 %}
+                    <img class="dice-image" src="{{ url_for('static', filename='img/two.png') }}" alt="Dice with value 2">
+                {% elif dice4 == 3 %}
+                    <img class="dice-image" src="{{ url_for('static', filename='img/three.png') }}" alt="Dice with value 3">
+                {% elif dice4 == 4 %}
+                    <img class="dice-image" src="{{ url_for('static', filename='img/four.png') }}" alt="Dice with value 4">
+                {% elif dice4 == 5 %}
+                    <img class="dice-image" src="{{ url_for('static', filename='img/five.png') }}" alt="Dice with value 5">
+                {% elif dice4 == 6 %}
+                    <img class="dice-image" src="{{ url_for('static', filename='img/six.png') }}" alt="Dice with value 6">
+                {% endif %}
+            </div>
+            <div class="dice-box" id="dice5">
+                {% if dice5 == 1 %}
+                    <img class="dice-image" src="{{ url_for('static', filename='img/one.png') }}" alt="Dice with value 1">
+                {% elif dice5 == 2 %}
+                    <img class="dice-image" src="{{ url_for('static', filename='img/two.png') }}" alt="Dice with value 2">
+                {% elif dice5 == 3 %}
+                    <img class="dice-image" src="{{ url_for('static', filename='img/three.png') }}" alt="Dice with value 3">
+                {% elif dice5 == 4 %}
+                    <img class="dice-image" src="{{ url_for('static', filename='img/four.png') }}" alt="Dice with value 4">
+                {% elif dice5 == 5 %}
+                    <img class="dice-image" src="{{ url_for('static', filename='img/five.png') }}" alt="Dice with value 5">
+                {% elif dice5 == 6 %}
+                    <img class="dice-image" src="{{ url_for('static', filename='img/six.png') }}" alt="Dice with value 6">
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+
+{% include 'footer.html' %}             

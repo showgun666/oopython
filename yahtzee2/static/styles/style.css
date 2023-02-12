@@ -1,0 +1,84 @@
+
+body {
+    padding-top: 4em;
+    padding-bottom: 2em;
+    background-color: #f0f0f0;
+    font-family: Arial, sans-serif;
+    font-size: 14px;
+  }
+
+.dice-image {
+    max-width: 100%;
+    max-height: 100%;
+}
+
+.dice-display {
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+}
+
+.dice-box {
+    flex: 1;
+    margin: 10px;
+    background-color: white;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    overflow: hidden;
+    display: inline-block;
+    width: 6em;
+    height: 6em;
+    text-align: center;
+}
+
+.yahtzee-button {
+    display: block;
+    margin: 20px auto;
+    padding: 10px 20px;
+    background-color: #0066cc;
+    color: white;
+    text-decoration: none;
+    border-radius: 10px;
+    font-size: 18px;
+}
+.yahtzee-button:hover {
+    background-color: #003399;
+    cursor: pointer;
+}
+
+.scorecard {
+    display: flex;
+    flex-wrap: wrap;
+    margin: 20px 0;
+}
+.scorecard-category {
+    flex: 1;
+    margin: 10px;
+    background-color: #f5f5f5;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    padding: 10px;
+    text-align: center;
+}
+.scorecard-category h3 {
+    margin: 0;
+}
+.scorecard-category p {
+    margin: 0;
+    font-size: 18px;
+}
+
+.navbar-nav {
+    font-size: 1.5em;
+}
+
+.nav-button {
+    margin: 5px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    padding: 10px;
+}
+
+.active {
+    font-weight: bold;
+}

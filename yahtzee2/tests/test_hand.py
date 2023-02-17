@@ -24,3 +24,18 @@ class TestDie(unittest.TestCase):
         self.assertEqual(my_list[2], 2) # Pos 3 is 2
         self.assertEqual(my_list[3], 3) # Pos 4 is 3
         self.assertEqual(my_list[4], 1) # Pos 5 is 4
+
+    def test_no_dice(self):
+        """ Attempt to create a hand with no argument. """
+        my_hand = Hand()
+        self.assertIsInstance(my_hand.dice[0], Die)
+    
+    def test_constructor_argument(self):
+        """ Attempt to create a hand with an argument. """
+        my_hand = Hand([1,1,2,2,3]) # Act
+        # Assert each die
+        self.assertEqual(my_hand.dice[0].get_value(), 1)
+        self.assertEqual(my_hand.dice[1].get_value(), 1)
+        self.assertEqual(my_hand.dice[2].get_value(), 2)
+        self.assertEqual(my_hand.dice[3].get_value(), 2)
+        self.assertEqual(my_hand.dice[4].get_value(), 3)

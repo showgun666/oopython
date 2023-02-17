@@ -17,6 +17,7 @@ class ThreeOfAKind(Rule):
         " Returns the sum of the hand's values if a triple value exists."
         # Make a list of the values
         values = hand.to_list()
+        points = 0
         value_dic = {}
         # Loop through values and count unique values in a dictionary
         for value in values:
@@ -27,7 +28,8 @@ class ThreeOfAKind(Rule):
         # Enumerate through dictionary, return sum of values if a dic value is 3 or higher
         for _, value in enumerate(value_dic):
             if value_dic[value] >= 3:
-                return sum(values)
+                points = sum(values)
+        return points
 
 class FourOfAKind(Rule):
     " Rule for counting points for the four of a kind rule."
@@ -39,6 +41,7 @@ class FourOfAKind(Rule):
         # Make a list of the values
         values = hand.to_list()
         value_dic = {}
+        points = 0
         # Loop through values and count unique values in a dictionary
         for value in values:
             if value not in value_dic:
@@ -48,7 +51,8 @@ class FourOfAKind(Rule):
         # Enumerate through dictionary, return sum of values if a dic value is 4 or higher
         for _, value in enumerate(value_dic):
             if value_dic[value] >= 4:
-                return sum(values)
+                points = sum(values)
+        return points
 
 class FullHouse(Rule):
     " Rule for counting values for the Full House rule."
@@ -60,6 +64,7 @@ class FullHouse(Rule):
         # Make a list of the values
         values = hand.to_list()
         value_dic = {}
+        points = 0
         # Flags for doubles and triples
         doubles = False
         triples = False
@@ -77,7 +82,8 @@ class FullHouse(Rule):
                 doubles = True
         # If both flags are True, return 25 points.
         if triples and doubles:
-            return 25
+            points = 25
+        return points
 
 class SmallStraight(Rule):
     " Rule for counting values for the Small Straight rule."
@@ -87,6 +93,7 @@ class SmallStraight(Rule):
     def points(self, hand):
         # Get a list of values from hand.
         values = hand.to_list()
+        points = 0
         # Sort the list and remove duplicates.
         values = sorted(set(values))
         # Loop through list and see if it has 4 numbers in a sequence.
@@ -95,7 +102,9 @@ class SmallStraight(Rule):
         for i in range(len(values)-3):
             # Control if the difference between the value in current index and index+3 is 3.
             if values[i+3] - values[i] == 3:
-                return 30
+                points = 30
+                return points
+        return points
 
 class LargeStraight(Rule):
     " Rule for counting values for the Large Straight rule."
@@ -105,11 +114,13 @@ class LargeStraight(Rule):
     def points(self, hand):
         # Get a list of values from hand.
         values = hand.to_list()
+        points = 0
         # Sort the list and remove duplicates
         values = sorted(set(values))
         # Control if the difference between the value of index 0 and index 4 is 4 and check that we have 5 values.
         if len(values) == 5 and values[4] - values[0] == 4:
-            return 40
+            points = 40
+        return points
 
 class Yahtzee(Rule):
     " Rule for Yahtzee big points."
@@ -119,9 +130,11 @@ class Yahtzee(Rule):
     def points(self, hand):
         # Get a list of values from hand and remove duplicates.
         values = set(hand.to_list())
+        points = 0
         # If the length of the set list is 1, then there are 5 of the same value in hand.
         if len(values) == 1:
-            return 50
+            points = 50
+        return points
 
 class Chance(Rule):
     " Rule for chance. "

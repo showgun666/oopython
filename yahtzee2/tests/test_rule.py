@@ -26,7 +26,7 @@ class TestDie(unittest.TestCase):
         my_hand = Hand([4,5,3,5,6])
         my_rule = ThreeOfAKind()
         points = my_rule.points(my_hand)
-        self.assertEqual(points, None) # Assert 1
+        self.assertEqual(points, 0) # Assert 1
         my_hand = Hand([6,5,6,6,2])
         points = my_rule.points(my_hand)
         self.assertEqual(points, 25) # Assert 2
@@ -41,7 +41,7 @@ class TestDie(unittest.TestCase):
 
         my_hand.roll()
         points = my_rule.points(my_hand)
-        self.assertEqual(points, None) # Assert 2 None
+        self.assertEqual(points, 0) # Assert 2 0
     
     def test_full_house(self):
         """ Make sure FullHouse returns the correct value. """
@@ -52,7 +52,7 @@ class TestDie(unittest.TestCase):
 
         my_hand.roll()
         points = my_rule.points(my_hand)
-        self.assertEqual(points, None) # Assert 2 None
+        self.assertEqual(points, 0) # Assert 2 0
 
     def test_small_straight(self):
         """ Test Small Straight for functionality. """
@@ -63,7 +63,7 @@ class TestDie(unittest.TestCase):
 
         my_hand = Hand([1,2,3,5,6])
         points = my_rule.points(my_hand)
-        self.assertEqual(points, None) # Assert None
+        self.assertEqual(points, 0) # Assert 0
         
         my_hand = Hand([6,3,2,4,1])
         points = my_rule.points(my_hand)
@@ -94,11 +94,11 @@ class TestDie(unittest.TestCase):
 
         my_hand = Hand([6,2,6,4,5])
         points = my_rule.points(my_hand)
-        self.assertEqual(points, None) # Assert 3 high & scramble
+        self.assertEqual(points, 0) # Assert 3 high & scramble
 
         my_hand = Hand([6,6,6,5,5])
         points = my_rule.points(my_hand)
-        self.assertEqual(points, None) # Assert 4 wrong numbers
+        self.assertEqual(points, 0) # Assert 4 wrong numbers
 
     def test_yahtzee(self):
         """ Test Yahtzee scoring. """
@@ -109,7 +109,7 @@ class TestDie(unittest.TestCase):
 
         my_hand = Hand([1,2,1,1,1])
         points = my_rule.points(my_hand)
-        self.assertEqual(points, None) # Assert 2
+        self.assertEqual(points, 0) # Assert 2
 
     def test_chance(self):
         """ Test Chance scoring. """

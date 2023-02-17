@@ -15,7 +15,7 @@ class TestDie(unittest.TestCase):
 
     def test_to_list(self):
         """ Attempts to create a list from a hand. """
-        my_hand = Hand()
+        my_hand = Hand([5,1,2,3,1])
         my_list = my_hand.to_list() # Act
         
         # Asserts x5

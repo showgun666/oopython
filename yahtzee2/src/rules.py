@@ -9,7 +9,6 @@ class Rule(ABC):
     @abstractmethod
     def points(self, hand):
         " Empty abstract method for calculating points."
-        pass
 
 class ThreeOfAKind(Rule):
     " Rule for counting points for the three of a kind rule."

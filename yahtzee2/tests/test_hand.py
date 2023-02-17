@@ -17,7 +17,7 @@ class TestDie(unittest.TestCase):
         """ Attempts to create a list from a hand. """
         my_hand = Hand([5,1,2,3,1])
         my_list = my_hand.to_list() # Act
-        
+
         # Asserts x5
         self.assertEqual(my_list[0], 5) # Pos 1 is 5
         self.assertEqual(my_list[1], 1) # Pos 2 is 1
@@ -29,7 +29,7 @@ class TestDie(unittest.TestCase):
         """ Attempt to create a hand with no argument. """
         my_hand = Hand()
         self.assertIsInstance(my_hand.dice[0], Die)
-    
+
     def test_constructor_argument(self):
         """ Attempt to create a hand with an argument. """
         my_hand = Hand([1,1,2,2,3]) # Act

@@ -3,9 +3,9 @@
 """ Module for testing the class Die """
 import unittest
 import random
-from src.die import Die
 from src.hand import Hand
-from src.rules import Rule, SameValueRule, Ones, ThreeOfAKind, FourOfAKind, FullHouse, SmallStraight, LargeStraight, Yahtzee, Chance
+from src.rules import Ones, ThreeOfAKindFourOfAKind, FullHouse, SmallStraight
+from src.rules import LargeStraight, Yahtzee, Chance
 
 class TestDie(unittest.TestCase):
     """ Submodule for unittests, derives from unittest.TestCase """
@@ -42,7 +42,7 @@ class TestDie(unittest.TestCase):
         my_hand.roll()
         points = my_rule.points(my_hand)
         self.assertEqual(points, 0) # Assert 2 0
-    
+
     def test_full_house(self):
         """ Make sure FullHouse returns the correct value. """
         my_hand = Hand([1,1,1,6,6])
@@ -64,7 +64,7 @@ class TestDie(unittest.TestCase):
         my_hand = Hand([1,2,3,5,6])
         points = my_rule.points(my_hand)
         self.assertEqual(points, 0) # Assert 0
-        
+
         my_hand = Hand([6,3,2,4,1])
         points = my_rule.points(my_hand)
         self.assertEqual(points, 30) # Assert Scramble
@@ -80,7 +80,7 @@ class TestDie(unittest.TestCase):
         my_hand = Hand([4,2,3,5,6])
         points = my_rule.points(my_hand)
         self.assertEqual(points, 30) # Assert 5 straight
-    
+
     def test_large_straight(self):
         """ Testing Large Straight."""
         my_hand = Hand([1,2,3,4,5])

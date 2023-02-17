@@ -28,10 +28,10 @@ class Hand:
         return ", ".join(str(die) for die in self.dice)
 
     def to_list(self):
-    """
-    Returnerar en lista som innehåller värdet av varje tärning i handen.
-    """
-    value_list = []
-    for die in self.dice:
-        value_list.append(die.get_value())
-    return value_list
+        """
+        Returnerar en lista som innehåller värdet av varje tärning i handen.
+        """
+        value_list = []
+        for die in self.dice:
+            value_list.append(die.get_value())
+        return value_list

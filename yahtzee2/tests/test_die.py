@@ -65,3 +65,14 @@ class TestDie(unittest.TestCase):
         """ Check if __str__() returns correct value as a string. """
         my_die = Die()
         self.assertEqual(int(str(my_die)), my_die._value) # Assert
+
+    def test_equal(self):
+        """ Check if __eq__() returns correct value. """
+        my_die = Die() # Act, create an object of Die.
+        my_other_die = Die() # Act, create another object of Die.
+        my_other_die.roll()
+        self.assertEqual(my_die, my_die) # Assert object is equal to object.
+        self.assertEqual(my_die, 5) # Assert object is equal to integer.
+        self.assertNotEqual(my_die, my_other_die) # Assert object is not equal to object.
+        self.assertNotEqual(my_die, 0) # Assert object is not equal to int.
+        self.assertNotEqual(my_die, "string") # Assert object not equal to string.

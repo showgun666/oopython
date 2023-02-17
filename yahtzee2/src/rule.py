@@ -13,7 +13,6 @@ class ThreeOfAKind(Rule):
     " Rule for counting points for the three of a kind rule."
     def __init__(self):
         self.name = "Three of a Kind"
-
     def points(self, hand):
         " Returns the sum of the hand's values if a triple value exists."
         # Make a list of the values
@@ -90,7 +89,6 @@ class SmallStraight(Rule):
         values = hand.to_list()
         # Sort the list and remove duplicates.
         values = sorted(set(values))
-
         # Loop through list and see if it has 4 numbers in a sequence.
         # Restrict the indexes by length of values.
         # Loop through each value in
@@ -99,6 +97,39 @@ class SmallStraight(Rule):
             if values[i+3] - values[i] == 3:
                 return 30
 
+class LargeStraight(Rule):
+    " Rule for counting values for the Large Straight rule."
+    def __init__(self):
+        self.name = "Large Straight"
+    
+    def points(self, hand):
+        # Get a list of values from hand.
+        values = hand.to_list()
+        # Sort the list and remove duplicates
+        values = sorted(set(values))
+        # Control if the difference between the value of index 0 and index 4 is 4 and check that we have 5 values.
+        if len(values) == 5 and values[4] - values[0] == 4:
+            return 40
+
+class Yahtzee(Rule):
+    " Rule for Yahtzee big points."
+    def __init__(self):
+        self.name = "Yahtzee"
+
+    def points(self, hand):
+        # Get a list of values from hand and remove duplicates.
+        values = set(hand.to_list())
+        # If the length of the set list is 1, then there are 5 of the same value in hand.
+        if len(values) == 1:
+            return 50
+
+class Chance(Rule):
+    " Rule for chance. "
+    def __init__(self):
+        self.name = "Chance"
+    def points(self, hand):
+        # Just return the sum of the hand.to_list value.
+        return sum(hand.to_list())
 
 class SameValueRule(Rule):
     """

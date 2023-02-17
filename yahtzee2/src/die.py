@@ -65,7 +65,7 @@ class Die:
         """
         if isinstance(die, int):
             return self.get_value() == die
-        elif isinstance(die, Die):
+        if isinstance(die, Die):
             return self.get_value() == die.get_value()
         else:
             return False

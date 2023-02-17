@@ -5,6 +5,7 @@ För varje sätt att få poäng existerar en underklass.
 from abc import ABC, abstractmethod
 
 class Rule(ABC):
+    " Abstract parent class for rules. "
     @abstractmethod
     def points(self, hand):
         pass
@@ -75,7 +76,7 @@ class FullHouse(Rule):
             else:
                 value_dic[value] += 1
         # Enumerate through dictionary, switch flags if double or triple exists.
-        for key, value in enumerate(value_dic):
+        for _, value in enumerate(value_dic):
             if value_dic[value] == 3:
                 triples = True
             elif value_dic[value] == 2:
@@ -171,25 +172,25 @@ class Ones(SameValueRule):
 
 class Twos(SameValueRule):
     " Child class for counting twos. "
-    def __init__():
+    def __init__(self):
         super().__init__(2, "Twos")
 
 class Threes(SameValueRule):
     " Child class for counting threes. "
-    def __init__():
+    def __init__(self):
         super().__init__(3, "Threes")
 
 class Fours(SameValueRule):
     " Child class for counting fours. "
-    def __init__():
+    def __init__(self):
         super().__init__(4, "Fours")
 
 class Fives(SameValueRule):
     " Child class for counting fives. "
-    def __init__():
+    def __init__(self):
         super().__init__(5, "Fives")
 
 class Sixes(SameValueRule):
     " Child class for counting sixes. "
-    def __init__():
+    def __init__(self):
         super().__init__(6, "Sixes")

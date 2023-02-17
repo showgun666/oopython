@@ -5,7 +5,7 @@ import unittest
 import random
 from src.die import Die
 from src.hand import Hand
-from src.rule import Rule, SameValueRule, Ones, ThreeOfAKind, FourOfAKind, FullHouse, SmallStraight, LargeStraight, Yahtzee, Chance
+from src.rules import Rule, SameValueRule, Ones, ThreeOfAKind, FourOfAKind, FullHouse, SmallStraight, LargeStraight, Yahtzee, Chance
 
 class TestDie(unittest.TestCase):
     """ Submodule for unittests, derives from unittest.TestCase """

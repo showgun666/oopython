@@ -13,7 +13,7 @@ class Rule(ABC):
 class ThreeOfAKind(Rule):
     " Rule for counting points for the three of a kind rule."
     def __init__(self):
-        self.name = "Three Of a Kind"
+        self.name = "Three Of A Kind"
     def points(self, hand):
         " Returns the sum of the hand's values if a triple value exists."
         # Make a list of the values
@@ -35,7 +35,7 @@ class ThreeOfAKind(Rule):
 class FourOfAKind(Rule):
     " Rule for counting points for the four of a kind rule."
     def __init__(self):
-        self.name = "Four Of a Kind"
+        self.name = "Four Of A Kind"
 
     def points(self, hand):
         " Returns the sum of the hand's values if a triple value exists."

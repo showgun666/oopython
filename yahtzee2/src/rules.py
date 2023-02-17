@@ -8,6 +8,7 @@ class Rule(ABC):
     " Abstract parent class for rules. "
     @abstractmethod
     def points(self, hand):
+        " Empty abstract method for calculating points."
         pass
 
 class ThreeOfAKind(Rule):
@@ -59,7 +60,7 @@ class FullHouse(Rule):
     " Rule for counting values for the Full House rule."
     def __init__(self):
         self.name = "Full House"
-    
+
     def points(self, hand):
         " Returns 5 points if hand contains a double value and a triple value."
         # Make a list of the values
@@ -90,7 +91,7 @@ class SmallStraight(Rule):
     " Rule for counting values for the Small Straight rule."
     def __init__(self):
         self.name = "Small Straight"
-    
+
     def points(self, hand):
         # Get a list of values from hand.
         values = hand.to_list()
@@ -111,14 +112,15 @@ class LargeStraight(Rule):
     " Rule for counting values for the Large Straight rule."
     def __init__(self):
         self.name = "Large Straight"
-    
+
     def points(self, hand):
         # Get a list of values from hand.
         values = hand.to_list()
         points = 0
         # Sort the list and remove duplicates
         values = sorted(set(values))
-        # Control if the difference between the value of index 0 and index 4 is 4 and check that we have 5 values.
+        # Control if the difference between the value of
+        # index 0 and index 4 is 4 and check that we have 5 values.
         if len(values) == 5 and values[4] - values[0] == 4:
             points = 40
         return points

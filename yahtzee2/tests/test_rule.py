@@ -4,7 +4,7 @@
 import unittest
 import random
 from src.hand import Hand
-from src.rules import Ones, ThreeOfAKindFourOfAKind, FullHouse, SmallStraight
+from src.rules import Ones, ThreeOfAKind, FourOfAKind, FullHouse, SmallStraight
 from src.rules import LargeStraight, Yahtzee, Chance
 
 class TestDie(unittest.TestCase):

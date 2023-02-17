@@ -51,4 +51,21 @@ class Die:
         konvertera till string
         """
         return str(self._value)
-        
+
+    def __eq__(self, die):
+        """
+        Argumentet die är antingen en instans av die eller int.
+
+        Om argumentet die ger samma värde som som objektet
+        som använder metoden så returneras True.
+        Annars False.
+
+        Metoden kan ta ett argument som inte är die eller int,
+        men returnerar då False
+        """
+        if isinstance(die, int):
+            return self.get_value() == die
+        elif isinstance(die, Die):
+            return self.get_value() == die.get_value()
+        else:
+            return False

@@ -39,3 +39,21 @@ class TestDie(unittest.TestCase):
         self.assertEqual(my_hand.dice[2].get_value(), 2)
         self.assertEqual(my_hand.dice[3].get_value(), 2)
         self.assertEqual(my_hand.dice[4].get_value(), 3)
+
+    def test_roll_from_list(self):
+        """ Attempt to roll a hand from a list """
+        my_hand = Hand([5,1,2,3,1,6])
+
+        my_hand.roll([0, 2, 4]) # Act
+        my_hand.roll([0])
+
+        self.assertEqual(my_hand.dice[1], 1)
+        self.assertEqual(my_hand.dice[3], 3)
+        self.assertEqual(my_hand.dice[5], 6)
+
+        self.assertFalse(my_hand.dice[0] == 5)
+        self.assertFalse(my_hand.dice[2] == 2)
+        self.assertFalse(my_hand.dice[4] == 1)
+
+    def test_roll_without_argument(self):
+        ...

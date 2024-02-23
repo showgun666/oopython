@@ -56,7 +56,7 @@ class Die:
         """
         Argumentet die är antingen en instans av die eller int.
 
-        Om argumentet die ger samma värde som som objektet
+        Om argumentet die ger samma värde som objektet
         som använder metoden så returneras True.
         Annars False.
 

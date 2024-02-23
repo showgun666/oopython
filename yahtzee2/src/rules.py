@@ -153,6 +153,7 @@ class SameValueRule(Rule):
     def __init__(self, value, name):
         self.value = value
         self.name = name
+
     def points(self, hand):
         """
         Returns the sum of values in hand equal to self.value

@@ -44,7 +44,7 @@ class TestDie(unittest.TestCase):
         """ Attempt to roll a hand from a list """
         my_hand = Hand([5,1,2,3,1,6])
 
-        my_hand.roll([0, 2, 4]) # Act
+        my_hand.roll([0, 2, 4])
         my_hand.roll([0])
 
         self.assertEqual(my_hand.dice[1], 1)

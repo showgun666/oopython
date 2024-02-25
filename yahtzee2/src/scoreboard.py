@@ -69,8 +69,6 @@ class Scoreboard():
     # Return void
     def add_points(self, rule_name, hand):
         " Method to add points to the scoreboard for a given hand and rule. "
-        rules = self.get_rules()
-
         if self.get_points(rule_name) != -1:
             raise ValueError(f"Points already added for {rule_name}.")
 

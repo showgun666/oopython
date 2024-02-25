@@ -56,4 +56,13 @@ class TestDie(unittest.TestCase):
         self.assertFalse(my_hand.dice[4] == 1)
 
     def test_roll_without_argument(self):
-        ...
+        """ Attempt to roll a hand without an argument """
+        my_hand = Hand([5,1,2,3,1,6])
+
+        my_hand.roll()
+
+        self.assertFalse(my_hand.dice[0] != 5)
+        self.assertFalse(my_hand.dice[1] != 1)
+        self.assertFalse(my_hand.dice[2] != 2)
+        self.assertFalse(my_hand.dice[3] != 3)
+        self.assertFalse(my_hand.dice[4] != 1)

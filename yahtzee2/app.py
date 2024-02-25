@@ -3,8 +3,9 @@
 Yahtzee app, html test module
 """
 # Importera relevanta moduler
-from flask import Flask, render_template
+from flask import Flask, render_template, request, redirect, url_for, session
 from src.hand import Hand
+from src.scoreboard import Scoreboard
 
 app = Flask(__name__)
 

@@ -66,6 +66,3 @@ class TestDie(unittest.TestCase):
         self.assertFalse(my_hand.dice[2] != 2)
         self.assertFalse(my_hand.dice[3] != 3)
         self.assertFalse(my_hand.dice[4] != 1)
-
-    def test_dice(self):
-        ...

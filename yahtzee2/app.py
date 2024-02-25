@@ -36,5 +36,12 @@ def about():
     """ About route """
     return render_template("about.html")
 
+@app.route("/reset")
+def reset():
+    """ Route for reset session """
+    _ = [session.pop(key) for key in list(session.keys())]
+
+    return redirect(url_for('main'))
+
 if __name__ == "__main__":
     app.run(debug=True)

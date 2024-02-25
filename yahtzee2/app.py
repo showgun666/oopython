@@ -44,6 +44,30 @@ def main():
     # Returns value of every die in hand.
     return render_template("main.html", dice1 = d1, dice2 = d2, dice3 = d3, dice4 = d4, dice5 = d5)
 
+@app.route("/roll_selected_dice", methods=["POST"])
+def roll_selected_dice():
+    """Roll selected dice route"""
+    game_hand = Hand(session["hand"])
+    dice = [
+        request.form.get("die1"),
+        request.form.get("die2"),
+        request.form.get("die3"),
+        request.form.get("die4"),
+        request.form.get("die5")
+    ]
+    i = len(dice)-1
+    while i >= 0:
+        if dice[i] is None:
+            dice.pop(i)
+        else:
+            dice[i] = int(dice[i])
+        i -= 1
+
+    game_hand.roll(dice)
+    session["hand"] = game_hand.to_list()
+
+    return redirect(url_for('main'))
+
 @app.route("/about")
 def about():
     """ About route """

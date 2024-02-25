@@ -8,20 +8,35 @@ class Scoreboard():
     " Class for scoring Yahtzee game. "
     # Initialize the object
     def __init__(self):
+        self.rules_list = [
+            r.Ones(),
+            r.Twos(),
+            r.Threes(),
+            r.Fours(),
+            r.Fives(),
+            r.Sixes(),
+            r.ThreeOfAKind(),
+            r.FourOfAKind(),
+            r.FullHouse(),
+            r.SmallStraight(),
+            r.LargeStraight(),
+            r.Yahtzee(),
+            r.Chance()
+        ]
         self._rules = {
-            "Ones": [-1, r.Ones()],
-            "Twos": [-1, r.Twos()],
-            "Threes": [-1, r.Threes()],
-            "Fours": [-1, r.Fours()],
-            "Fives": [-1, r.Fives()],
-            "Sixes": [-1, r.Sixes()],
-            "Three Of A Kind": [-1, r.ThreeOfAKind()],
-            "Four Of A Kind": [-1, r.FourOfAKind()],
-            "Full House": [-1, r.FullHouse()],
-            "Small Straight": [-1, r.SmallStraight()],
-            "Large Straight": [-1, r.LargeStraight()],
-            "Yahtzee": [-1, r.Yahtzee()],
-            "Chance": [-1, r.Chance()],
+            "Ones": -1,
+            "Twos": -1,
+            "Threes": -1,
+            "Fours": -1,
+            "Fives": -1,
+            "Sixes": -1,
+            "Three Of A Kind": -1,
+            "Four Of A Kind": -1,
+            "Full House": -1,
+            "Small Straight": -1,
+            "Large Straight": -1,
+            "Yahtzee": -1,
+            "Chance": -1,
             }
 
     # Getter method for the rules

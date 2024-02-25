@@ -52,9 +52,9 @@ class Scoreboard():
         total_points = 0
 
         for i in rules.values():
-            if i[0] < 0:
+            if i < 0:
                 continue
-            total_points += i[0]
+            total_points += i
 
         return total_points
 
@@ -74,9 +74,13 @@ class Scoreboard():
         if self.get_points(rule_name) != -1:
             raise ValueError(f"Points already added for {rule_name}.")
 
-        points = rules[rule_name][1].points(hand)
+        points = 0
+        for rule in self.rules_list:
+            if rule.name == rule_name:
+                points = rule.points(hand)
+
         if points != 0:
-            self._rules[rule_name][0] = points
+            self._rules[rule_name] = points
 
     # Get points based on rule name
     # Show how many points the player has been rewarded for a specific rule
@@ -88,7 +92,7 @@ class Scoreboard():
         " Get points based on rule name. "
         rules = self.get_rules()
 
-        return rules[rule_name][0]
+        return rules[rule_name]
 
     # Determine if finished
     # If all rules have been used to reward points, return True
@@ -113,6 +117,6 @@ class Scoreboard():
         " Create a new scoreboard object from a dictionary. "
         instance = cls()
         for key in points.keys():
-            instance._rules[key][0] = points[key]
+            instance._rules[key] = points[key]
 
         return instance

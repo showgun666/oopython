@@ -22,7 +22,7 @@
                     <li {%- if request.path == "/" %} class="active" {% endif %}><a href="{{ url_for('index') }}">Welcome</a></li>
                 </div>
                 <div class ="nav-button">
-                    <li {%- if request.path == "/main" %} class="active" {% endif %}><a href="{{ url_for('main') }}">Play</a></li>
+                    <li {%- if request.path == "/init" %} class="active" {% endif %}><a href="{{ url_for('init') }}">Play</a></li>
                 </div>
                 <div class ="nav-button">
                     <li {%- if request.path == "/reset" %} class="active" {% endif %}><a href="{{ url_for('reset') }}">Reset</a></li>

@@ -3,30 +3,43 @@
 Yahtzee app, html test module
 """
 # Importera relevanta moduler
+import os
+import re
 from flask import Flask, render_template, request, redirect, url_for, session
 from src.hand import Hand
 from src.scoreboard import Scoreboard
 
 app = Flask(__name__)
+app.secret_key = re.sub(r"[^a-z\d]", "", os.path.realpath(__file__))
 
 @app.route("/")
 def index():
     """ Index route """
     return render_template("index.html")
 
-@app.route("/main")
+@app.route("/init", methods=["GET"])
+def init():
+    """ Intialize values needed in session """
+    scoreboard = Scoreboard()
+    hand = Hand()
+
+    session["rules"] = scoreboard.get_rules()
+    session["hand"] = hand.to_list()
+    return redirect(url_for('main'))
+
+@app.route("/main", methods=["GET"])
 def main():
     """ Main route """
-    # Create a hand.
-    gamehand = Hand()
-    # Rolls 5 dice
-    gamehand.roll()
+    # Create game objects from session
+    game_hand = Hand(session["hand"])
+    game_scoreboard = Scoreboard.from_dict(session["rules"])
+
     # Get values of each die
-    d1 = gamehand.dice[0].get_value()
-    d2 = gamehand.dice[1].get_value()
-    d3 = gamehand.dice[2].get_value()
-    d4 = gamehand.dice[3].get_value()
-    d5 = gamehand.dice[4].get_value()
+    d1 = game_hand.dice[0].get_value()
+    d2 = game_hand.dice[1].get_value()
+    d3 = game_hand.dice[2].get_value()
+    d4 = game_hand.dice[3].get_value()
+    d5 = game_hand.dice[4].get_value()
 
     # Returns value of every die in hand.
     return render_template("main.html", dice1 = d1, dice2 = d2, dice3 = d3, dice4 = d4, dice5 = d5)
@@ -41,7 +54,7 @@ def reset():
     """ Route for reset session """
     _ = [session.pop(key) for key in list(session.keys())]
 
-    return redirect(url_for('main'))
+    return redirect(url_for('init'))
 
 if __name__ == "__main__":
     app.run(debug=True)

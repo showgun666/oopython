@@ -8,7 +8,7 @@ class Scoreboard():
     " Class for scoring Yahtzee game. "
     # Initialize the object
     def __init__(self):
-        self._points = {
+        self._rules = {
             "Ones": [-1, r.Ones()],
             "Twos": [-1, r.Twos()],
             "Threes": [-1, r.Threes()],
@@ -27,7 +27,7 @@ class Scoreboard():
     # Getter method for the rules
     def get_rules(self):
         " Getter method for the rules"
-        return self._points
+        return self._rules
 
     # Get total points accrued by player
     # return int
@@ -61,7 +61,7 @@ class Scoreboard():
 
         points = rules[rule_name][1].points(hand)
         if points != 0:
-            self._points[rule_name][0] = points
+            self._rules[rule_name][0] = points
 
     # Get points based on rule name
     # Show how many points the player has been rewarded for a specific rule
@@ -98,6 +98,6 @@ class Scoreboard():
         " Create a new scoreboard object from a dictionary. "
         instance = cls()
         for key in points.keys():
-            instance._points[key][0] = points[key]
+            instance._rules[key][0] = points[key]
 
         return instance

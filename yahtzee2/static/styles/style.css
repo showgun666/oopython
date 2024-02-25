@@ -82,3 +82,8 @@ body {
 .active {
     font-weight: bold;
 }
+
+.select-die-box {
+    width: 6em;
+    height: 6em;
+}

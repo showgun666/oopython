@@ -1,0 +1,17 @@
+<form role="form" method="POST" action="{{ url_for('roll_selected_dice') }}">
+    <div class="form-group row">
+        <label for="value">Select dice to roll</label>
+        <div class="select-die-box">
+            <input type="checkbox" id="die1" name="die" class="form-control" />
+        </div><div class="select-die-box">
+            <input type="checkbox" id="die2" name="die" class="form-control" />
+        </div><div class="select-die-box">
+            <input type="checkbox" id="die3" name="die" class="form-control" />
+        </div><div class="select-die-box">
+            <input type="checkbox" id="die4" name="die" class="form-control" />
+        </div><div class="select-die-box">
+            <input type="checkbox" id="die5" name="die" class="form-control" />
+        </div>
+    </div>
+    <button type="submit" class="btn btn-default">Roll</button>
+</form>

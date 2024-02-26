@@ -32,3 +32,27 @@ class TestScoreboard(unittest.TestCase):
         my_scoreboard.add_points("Ones", my_hand)
         with self.assertRaises(ValueError) as _:
             my_scoreboard.add_points("Ones", my_hand)
+
+    def test_get_points_from_rule(self):
+        rules = {
+            "Ones": 3,
+            "Twos": 4,
+            "Threes": 9,
+            "Fours": 12,
+            "Fives": 25,
+            "Sixes": 12,
+            "Three Of A Kind": 11,
+            "Four Of A Kind": 14,
+            "Full House": -1,
+            "Small Straight": -1,
+            "Large Straight": 40,
+            "Yahtzee": -1,
+            "Chance": -1,
+            }
+        my_scoreboard = Scoreboard.from_dict(rules)
+
+        assert(my_scoreboard.get_points("Ones") == 3)
+        assert(my_scoreboard.get_points("Threes") == 9)
+        assert(my_scoreboard.get_points("Large Straight") == 40)
+        assert(my_scoreboard.get_points("Small Straight") == -1)
+        assert(my_scoreboard.get_points("Sixes") == 12)

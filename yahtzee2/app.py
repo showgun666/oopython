@@ -34,6 +34,8 @@ def main():
     game_hand = Hand(session["hand"])
     game_scoreboard = Scoreboard.from_dict(session["rules"])
 
+    rules_list = list(game_scoreboard.get_rules().keys())
+
     # Get values of each die
     d1 = game_hand.dice[0].get_value()
     d2 = game_hand.dice[1].get_value()
@@ -42,7 +44,7 @@ def main():
     d5 = game_hand.dice[4].get_value()
 
     # Returns value of every die in hand.
-    return render_template("main.html", dice1 = d1, dice2 = d2, dice3 = d3, dice4 = d4, dice5 = d5)
+    return render_template("main.html", dice1 = d1, dice2 = d2, dice3 = d3, dice4 = d4, dice5 = d5, rules = rules_list)
 
 @app.route("/roll_selected_dice", methods=["POST"])
 def roll_selected_dice():

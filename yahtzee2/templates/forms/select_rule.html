@@ -1,8 +1,24 @@
+<table>
 <form action="/score_rule.php">
-    <p>Select rule for scoring:</p>
-        {% for rule in rules %}
+    <tr>
+        <th>Choose</th>
+        <th>Worth</th>
+        <th>Rule</th>
+        <th>Already Scored</th>
+    </tr>
+        {% for rule in rules %}
+        <tr>
+        <td>
             <input type="radio" id="{{ rule }}" name="{{ rule }}" value="{{ rule }}">
-            <label for="{{ rule }}">{{ rule }}</label><br>
+        </td><td>
+            <p> 1 </p>
+        </td><td>
+            <label for="{{ rule }}">{{ rule }}</label>
+        </td><td>
+            <p> 10 </p>
+        </td>
+        </tr>
         {% endfor %}
     <input type="submit" value="Submit">
-  </form>
+</form>
+</table>

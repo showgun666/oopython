@@ -20,11 +20,11 @@ def index():
 @app.route("/init", methods=["GET"])
 def init():
     """ Intialize values needed in session """
-    scoreboard = Scoreboard()
-    hand = Hand()
+    game_scoreboard = Scoreboard()
+    game_hand = Hand()
 
-    session["rules"] = scoreboard.get_rules()
-    session["hand"] = hand.to_list()
+    session["rules"] = game_scoreboard.get_rules()
+    session["hand"] = game_hand.to_list()
     return redirect(url_for('main'))
 
 @app.route("/main", methods=["GET"])
@@ -90,10 +90,18 @@ def roll_selected_dice():
 
     return redirect(url_for('main'))
 
-@app.route("/score_rule")
+@app.route("/score_rule", methods=["GET"])
 def score_rule():
     """ Score a rule route """
+    game_hand = Hand(session["hand"])
+    game_scoreboard = Scoreboard.from_dict(session["rules"])
 
+    game_scoreboard.add_points(request.args.get('rule'), game_hand)
+
+    # Roll hand
+    game_hand.roll()
+    session["rules"] = game_scoreboard.get_rules()
+    session["hand"] = game_hand.to_list()
     return redirect(url_for('main'))
 
 @app.route("/about")

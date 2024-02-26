@@ -34,11 +34,11 @@ def main():
     game_hand = Hand(session["hand"])
     game_scoreboard = Scoreboard.from_dict(session["rules"])
 
-    rules_list = list(game_scoreboard.get_rules().keys())
-    points_dic = {}
+    rules_point_list = list(game_scoreboard.get_rules().keys())
+    scored_points_dic = {}
 
     for rule in game_scoreboard.get_rules():
-        points_dic[rule] = game_scoreboard.get_rules()[rule]
+        scored_points_dic[rule] = game_scoreboard.get_rules()[rule]
 
     # Get values of each die
     d1 = game_hand.dice[0].get_value()
@@ -47,8 +47,23 @@ def main():
     d4 = game_hand.dice[3].get_value()
     d5 = game_hand.dice[4].get_value()
 
+    # Get points from each rule for current hand
+    rule_values = {}
+    for rule in game_scoreboard.rules_list:
+        rule_values[rule.name] = rule.points(game_hand)
+
     # Returns value of every die in hand.
-    return render_template("main.html", dice1 = d1, dice2 = d2, dice3 = d3, dice4 = d4, dice5 = d5, rules = rules_list, points = points_dic)
+    return render_template(
+        "main.html",
+        dice1 = d1,
+        dice2 = d2,
+        dice3 = d3,
+        dice4 = d4,
+        dice5 = d5,
+        rules = rules_point_list,
+        points = scored_points_dic,
+        rule_values = rule_values
+        )
 
 @app.route("/roll_selected_dice", methods=["POST"])
 def roll_selected_dice():
@@ -61,6 +76,7 @@ def roll_selected_dice():
         request.form.get("die4"),
         request.form.get("die5")
     ]
+
     i = len(dice)-1
     while i >= 0:
         if dice[i] is None:
@@ -71,6 +87,12 @@ def roll_selected_dice():
 
     game_hand.roll(dice)
     session["hand"] = game_hand.to_list()
+
+    return redirect(url_for('main'))
+
+@app.route("/score_rule")
+def score_rule():
+    """ Score a rule route """
 
     return redirect(url_for('main'))
 

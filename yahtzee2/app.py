@@ -25,6 +25,7 @@ def init():
 
     session["rules"] = game_scoreboard.get_rules()
     session["hand"] = game_hand.to_list()
+    session["total_points"] = game_scoreboard.get_total_points()
     return redirect(url_for('main'))
 
 @app.route("/main", methods=["GET"])
@@ -33,6 +34,7 @@ def main():
     # Create game objects from session
     game_hand = Hand(session["hand"])
     game_scoreboard = Scoreboard.from_dict(session["rules"])
+    total_points = session["total_points"]
 
     rules_point_list = list(game_scoreboard.get_rules().keys())
     scored_points_dic = {}
@@ -62,7 +64,8 @@ def main():
         dice5 = d5,
         rules = rules_point_list,
         points = scored_points_dic,
-        rule_values = rule_values
+        rule_values = rule_values,
+        total_points = total_points
         )
 
 @app.route("/roll_selected_dice", methods=["POST"])
@@ -102,6 +105,7 @@ def score_rule():
     game_hand.roll()
     session["rules"] = game_scoreboard.get_rules()
     session["hand"] = game_hand.to_list()
+    session["total_points"] = game_scoreboard.get_total_points()
     return redirect(url_for('main'))
 
 @app.route("/about")

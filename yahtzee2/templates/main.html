@@ -7,6 +7,13 @@
                 {{ total_points }}
             </h1>
         </div>
+        <div class="message-display">
+            <h2>
+                {% if message %}
+                    {{ message }}
+                {% endif %}
+            </h2>
+        </div>
         <div class="row">
             <div class="dice-box" id="dice1">
                 {% if dice1 == 1 %}

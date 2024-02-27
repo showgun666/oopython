@@ -26,6 +26,9 @@ def init():
     session["rules"] = game_scoreboard.get_rules()
     session["hand"] = game_hand.to_list()
     session["total_points"] = game_scoreboard.get_total_points()
+    session["message"] = ""
+    session["rerolls"] = 0
+    
     return redirect(url_for('main'))
 
 @app.route("/main", methods=["GET"])
@@ -35,6 +38,13 @@ def main():
     game_hand = Hand(session["hand"])
     game_scoreboard = Scoreboard.from_dict(session["rules"])
     total_points = session["total_points"]
+
+    # Get data from session
+    if session["message"]:
+        message = session["message"]
+        session["message"] = ""
+    else:
+        message = ""
 
     rules_point_list = list(game_scoreboard.get_rules().keys())
     scored_points_dic = {}
@@ -65,31 +75,36 @@ def main():
         rules = rules_point_list,
         points = scored_points_dic,
         rule_values = rule_values,
-        total_points = total_points
+        total_points = total_points,
+        message = message
         )
 
 @app.route("/roll_selected_dice", methods=["POST"])
 def roll_selected_dice():
     """Roll selected dice route"""
-    game_hand = Hand(session["hand"])
-    dice = [
-        request.form.get("die1"),
-        request.form.get("die2"),
-        request.form.get("die3"),
-        request.form.get("die4"),
-        request.form.get("die5")
-    ]
+    if session["rerolls"] < 2:
+        game_hand = Hand(session["hand"])
+        dice = [
+            request.form.get("die1"),
+            request.form.get("die2"),
+            request.form.get("die3"),
+            request.form.get("die4"),
+            request.form.get("die5")
+        ]
 
-    i = len(dice)-1
-    while i >= 0:
-        if dice[i] is None:
-            dice.pop(i)
-        else:
-            dice[i] = int(dice[i])
-        i -= 1
+        i = len(dice)-1
+        while i >= 0:
+            if dice[i] is None:
+                dice.pop(i)
+            else:
+                dice[i] = int(dice[i])
+            i -= 1
 
-    game_hand.roll(dice)
-    session["hand"] = game_hand.to_list()
+        game_hand.roll(dice)
+        session["hand"] = game_hand.to_list()
+        session["rerolls"] += 1
+    else:
+        session["message"] = "Too many rerolls. Select a rule to score."
 
     return redirect(url_for('main'))
 
@@ -99,13 +114,21 @@ def score_rule():
     game_hand = Hand(session["hand"])
     game_scoreboard = Scoreboard.from_dict(session["rules"])
 
-    game_scoreboard.add_points(request.args.get('rule'), game_hand)
+    if game_scoreboard.get_points(request.args.get('rule')) == -1:
+        # Add points
+        game_scoreboard.add_points(request.args.get('rule'), game_hand)
+        # Roll hand
+        game_hand.roll()
 
-    # Roll hand
-    game_hand.roll()
-    session["rules"] = game_scoreboard.get_rules()
-    session["hand"] = game_hand.to_list()
-    session["total_points"] = game_scoreboard.get_total_points()
+        # Update Session
+        session["rules"] = game_scoreboard.get_rules()
+        session["hand"] = game_hand.to_list()
+        session["total_points"] = game_scoreboard.get_total_points()
+        session["rerolls"] = 0
+    else:
+        # Say the rule is already scored. Value stored in session
+        session["message"] = request.args.get('rule') + " is already scored. Select a different rule."
+
     return redirect(url_for('main'))
 
 @app.route("/about")

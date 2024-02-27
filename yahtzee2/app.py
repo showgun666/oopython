@@ -39,7 +39,10 @@ def main():
     game_scoreboard = Scoreboard.from_dict(session["rules"])
     total_points = session["total_points"]
 
-    # Get data from session
+    if game_scoreboard.finished():
+        session["message"] = "Game is already finished. Press Play or Reset to start a new game."
+
+    # Get message from session
     if session["message"]:
         message = session["message"]
         session["message"] = ""
@@ -129,6 +132,8 @@ def score_rule():
         # Say the rule is already scored. Value stored in session
         session["message"] = request.args.get('rule') + " is already scored. Select a different rule."
 
+    if game_scoreboard.finished():
+        session["message"] = "Game finished with a Final score of " + str(game_scoreboard.get_total_points()) + " points.\nPress Reset or Play to start a new game of Yahtzee."
     return redirect(url_for('main'))
 
 @app.route("/about")

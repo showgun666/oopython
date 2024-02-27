@@ -34,6 +34,7 @@ class TestScoreboard(unittest.TestCase):
             my_scoreboard.add_points("Ones", my_hand)
 
     def test_get_points_from_rule(self):
+        """ Test getting points from a rule."""
         rules = {
             "Ones": 3,
             "Twos": 4,
@@ -51,8 +52,8 @@ class TestScoreboard(unittest.TestCase):
             }
         my_scoreboard = Scoreboard.from_dict(rules)
 
-        assert(my_scoreboard.get_points("Ones") == 3)
-        assert(my_scoreboard.get_points("Threes") == 9)
-        assert(my_scoreboard.get_points("Large Straight") == 40)
-        assert(my_scoreboard.get_points("Small Straight") == -1)
-        assert(my_scoreboard.get_points("Sixes") == 12)
+        self.assertEqual(my_scoreboard.get_points("Ones"), 3)
+        self.assertEqual(my_scoreboard.get_points("Threes"), 9)
+        self.assertEqual(my_scoreboard.get_points("Large Straight"), 40)
+        self.assertEqual(my_scoreboard.get_points("Small Straight"), -1)
+        self.assertEqual(my_scoreboard.get_points("Sixes"), 12)

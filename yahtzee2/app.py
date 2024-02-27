@@ -28,7 +28,7 @@ def init():
     session["total_points"] = game_scoreboard.get_total_points()
     session["message"] = ""
     session["rerolls"] = 0
-    
+
     return redirect(url_for('main'))
 
 @app.route("/main", methods=["GET"])
@@ -130,10 +130,11 @@ def score_rule():
         session["rerolls"] = 0
     else:
         # Say the rule is already scored. Value stored in session
-        session["message"] = request.args.get('rule') + " is already scored. Select a different rule."
+        session["message"] = request.args.get('rule') + " is already scored!"
 
     if game_scoreboard.finished():
-        session["message"] = "Game finished with a Final score of " + str(game_scoreboard.get_total_points()) + " points.\nPress Reset or Play to start a new game of Yahtzee."
+        final_score = str(game_scoreboard.get_total_points())
+        session["message"] = "Game finished! Final score: " + final_score + " points."
     return redirect(url_for('main'))
 
 @app.route("/about")

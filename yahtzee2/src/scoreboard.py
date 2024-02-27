@@ -75,10 +75,8 @@ class Scoreboard():
         points = 0
         for rule in self.rules_list:
             if rule.name == rule_name:
-                points = rule.points(hand)
-
-        if points != 0:
-            self._rules[rule_name] = points
+                points += rule.points(hand)
+        self._rules[rule_name] = points
 
     # Get points based on rule name
     # Show how many points the player has been rewarded for a specific rule

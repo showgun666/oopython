@@ -29,7 +29,7 @@ class ThreeOfAKind(Rule):
         # Enumerate through dictionary, return sum of values if a dic value is 3 or higher
         for _, value in enumerate(value_dic):
             if value_dic[value] >= 3:
-                points = sum(values)
+                points += sum(values)
         return points
 
 class FourOfAKind(Rule):
@@ -52,7 +52,7 @@ class FourOfAKind(Rule):
         # Enumerate through dictionary, return sum of values if a dic value is 4 or higher
         for _, value in enumerate(value_dic):
             if value_dic[value] >= 4:
-                points = sum(values)
+                points += sum(values)
         return points
 
 class FullHouse(Rule):
@@ -83,7 +83,7 @@ class FullHouse(Rule):
                 doubles = True
         # If both flags are True, return 25 points.
         if triples and doubles:
-            points = 25
+            points += 25
         return points
 
 class SmallStraight(Rule):
@@ -103,8 +103,7 @@ class SmallStraight(Rule):
         for i in range(len(values)-3):
             # Control if the difference between the value in current index and index+3 is 3.
             if values[i+3] - values[i] == 3:
-                points = 30
-                return points
+                points += 30
         return points
 
 class LargeStraight(Rule):
@@ -121,7 +120,7 @@ class LargeStraight(Rule):
         # Control if the difference between the value of
         # index 0 and index 4 is 4 and check that we have 5 values.
         if len(values) == 5 and values[4] - values[0] == 4:
-            points = 40
+            points += 40
         return points
 
 class Yahtzee(Rule):
@@ -135,7 +134,7 @@ class Yahtzee(Rule):
         points = 0
         # If the length of the set list is 1, then there are 5 of the same value in hand.
         if len(values) == 1:
-            points = 50
+            points += 50
         return points
 
 class Chance(Rule):

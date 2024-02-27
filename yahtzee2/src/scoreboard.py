@@ -99,7 +99,7 @@ class Scoreboard():
         rules = self.get_rules()
 
         for rule in rules.values():
-            if rule[0] < 0:
+            if rule < 0:
                 done_flag = False
                 break
         return done_flag

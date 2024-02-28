@@ -1,3 +1,3 @@
 # OOPYTHON REPOSITORY
 
-This repository is a place where Markus von Wowern and Adam Gomaev stores their group projects.
+This repository is a place where Markus von Wowern stores his Yahtzee project for oopython at BTH.

@@ -3,6 +3,7 @@
 """ Module for testing the class unorderedList """
 import unittest
 from src.unorderedList import UnorderedList
+from src.errors import MissingIndex
 
 class TestUnorderedList(unittest.TestCase):
     """
@@ -48,3 +49,49 @@ class TestUnorderedList(unittest.TestCase):
         self.assertEqual(unorderedList.head.next.next.data, 1)
         self.assertEqual(unorderedList.head.next.next.next.data, 2)
         self.assertEqual(unorderedList.head.next.next.next.next, None)
+
+    def testSetEmptyList(self):
+        """
+        cannot set value to empty list
+        """
+        # Arrange
+        unorderedList = UnorderedList()
+        # Assert
+        with self.assertRaises(MissingIndex):
+            unorderedList.set(-1, 1)
+        with self.assertRaises(MissingIndex):
+            unorderedList.set(0, 1)
+        with self.assertRaises(MissingIndex):
+            unorderedList.set(1, 1)
+
+    def testSetIndex(self):
+        """
+        can set value of an index
+        """
+        # Arrange
+        unorderedList = UnorderedList()
+        unorderedList.append(0)
+        unorderedList.append(1)
+        unorderedList.append(2)
+        unorderedList.append(3)
+        # Act
+        unorderedList.set(0, "a")
+        unorderedList.set(1, "b")
+        unorderedList.set(2, "c")
+        unorderedList.set(3, "d")
+        # Assert
+        self.assertEqual(unorderedList.head.next.data, "a")
+        self.assertEqual(unorderedList.head.next.next.data, "b")
+        self.assertEqual(unorderedList.head.next.next.next.data, "c")
+        self.assertEqual(unorderedList.head.next.next.next.next.data, "d")
+
+    def testSetIndexOutOfRange(self):
+        """
+        setting index out of range raises an exception
+        """
+        # Arrange
+        unorderedList = UnorderedList()
+        unorderedList.append(0)
+        # Act & Assert
+        with self.assertRaises(MissingIndex):
+            unorderedList.set(5, 4)

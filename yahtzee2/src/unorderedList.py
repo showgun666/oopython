@@ -3,6 +3,7 @@ Denna modul innehåller en klass som simulerar en unordered list
 Detta är för att lära mig datastrukturer.
 """
 from src.node import Node
+from src.errors import MissingIndex
 
 class UnorderedList():
     """
@@ -28,7 +29,20 @@ class UnorderedList():
         current_node.next = Node(data)
 
     def set(self, index, data):
-        ...
+        """
+        Set the value of a given index in the list
+        """
+        current_node = self.head.next
+        i = 0
+        while current_node != None:
+            if i == index:
+                current_node.data = data
+                break
+            else:
+                current_node = current_node.next
+            i += 1
+        if current_node == None or i > index:
+            raise MissingIndex("Index out of range!")
 
     def size(self):
         ...

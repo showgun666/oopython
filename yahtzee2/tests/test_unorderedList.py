@@ -118,3 +118,48 @@ class TestUnorderedList(unittest.TestCase):
 
         # Assert
         self.assertEqual(unorderedList.size(), 4)
+
+    def testGetEmptyList(self):
+        """
+        Get on empty list raises an exception
+        """
+        # Arrange
+        unorderedList = UnorderedList()
+
+        # Assert
+        with self.assertRaises(MissingIndex):
+            unorderedList.get(0)
+            unorderedList.get(1)
+
+    def testGetValueOutOfRange(self):
+        """
+        Get on empty list raises an exception
+        """
+        # Arrange
+        unorderedList = UnorderedList()
+        unorderedList.append(0)
+        unorderedList.append(1)
+        unorderedList.append(2)
+        unorderedList.append(3)
+
+        # Assert
+        with self.assertRaises(MissingIndex):
+            unorderedList.get(5)
+
+    def testGetValueFromIndex(self):
+        """
+        Get returns correct value
+        """
+        # Arrange
+        unorderedList = UnorderedList()
+        unorderedList.append(0)
+        unorderedList.append(1)
+        unorderedList.append(2)
+        unorderedList.append(3)
+
+        # Assert
+        self.assertEqual(unorderedList.get(0), 0)
+        self.assertEqual(unorderedList.get(1), 1)
+        self.assertEqual(unorderedList.get(2), 2)
+        self.assertEqual(unorderedList.get(3), 3)
+        self.assertNotEqual(unorderedList.get(3), 2)

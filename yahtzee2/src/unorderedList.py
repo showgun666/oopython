@@ -42,7 +42,7 @@ class UnorderedList():
                 current_node = current_node.next
             i += 1
         if current_node == None or i > index:
-            raise MissingIndex("Index out of range!")
+            raise MissingIndex("Index not found!")
 
     def size(self):
         """
@@ -58,8 +58,20 @@ class UnorderedList():
         return i
     
     def get(self, index):
-        ...
-    
+        """
+        Return value of index
+        """
+        current_node = self.head.next
+        i = 0
+        while current_node != None:
+            if i == index:
+                return current_node.data
+            else:
+                current_node = current_node.next
+            i += 1
+        if current_node == None or i > index:
+            raise MissingIndex("Index not found!")
+
     def index_of(self, value):
         ...
     

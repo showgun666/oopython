@@ -6,3 +6,6 @@ class Error(Exception):
 
 class MissingIndex(Error):
    """Raised when an index is not found"""
+
+class MissingValue(Error):
+   """Raised when a value is not found"""

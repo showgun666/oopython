@@ -4,6 +4,7 @@ Detta är för att lära mig datastrukturer.
 """
 from src.node import Node
 from src.errors import MissingIndex
+from src.errors import MissingValue
 
 class UnorderedList():
     """
@@ -73,7 +74,19 @@ class UnorderedList():
             raise MissingIndex("Index not found!")
 
     def index_of(self, value):
-        ...
+        """
+        Returns the index of a given value
+        """
+        current_node = self.head.next
+        i = 0
+        while current_node != None:
+            if current_node.data == value:
+                return i
+            else:
+                current_node = current_node.next
+            i += 1
+        raise MissingValue("Value not found!")
+
     
     def print_list(self):
         ...

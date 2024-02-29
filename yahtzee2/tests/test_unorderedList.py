@@ -4,6 +4,7 @@
 import unittest
 from src.unorderedList import UnorderedList
 from src.errors import MissingIndex
+from src.errors import MissingValue
 
 class TestUnorderedList(unittest.TestCase):
     """
@@ -163,3 +164,36 @@ class TestUnorderedList(unittest.TestCase):
         self.assertEqual(unorderedList.get(2), 2)
         self.assertEqual(unorderedList.get(3), 3)
         self.assertNotEqual(unorderedList.get(3), 2)
+
+    def testIndexOfWithoutValueRaisesException(self):
+        """
+        index_of on list without value raises exception
+        """
+        # Arrange
+        unorderedList = UnorderedList()
+        unorderedList.append(0)
+        unorderedList.append(5)
+        unorderedList.append(2)
+        unorderedList.append(3)
+
+        # Assert
+        with self.assertRaises(MissingValue):
+            unorderedList.index_of(1)
+            unorderedList.index_of(4)
+
+    def testIndexOfReturnsCorrectIndex(self):
+        """
+        index_of returns correct index
+        """
+        # Arrange
+        unorderedList = UnorderedList()
+        unorderedList.append(0)
+        unorderedList.append(5)
+        unorderedList.append(2)
+        unorderedList.append(3)
+
+        # Assert
+        self.assertEqual(unorderedList.index_of(0), 0)
+        self.assertEqual(unorderedList.index_of(5), 1)
+        self.assertEqual(unorderedList.index_of(2), 2)
+        self.assertEqual(unorderedList.index_of(3), 3)

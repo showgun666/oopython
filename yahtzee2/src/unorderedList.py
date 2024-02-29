@@ -45,7 +45,17 @@ class UnorderedList():
             raise MissingIndex("Index out of range!")
 
     def size(self):
-        ...
+        """
+        Get the size of the list
+        """
+        i = 0
+        current_node = self.head
+
+        while current_node.next != None:
+            current_node = current_node.next
+            i += 1
+
+        return i
     
     def get(self, index):
         ...

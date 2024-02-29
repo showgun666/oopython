@@ -95,3 +95,26 @@ class TestUnorderedList(unittest.TestCase):
         # Act & Assert
         with self.assertRaises(MissingIndex):
             unorderedList.set(5, 4)
+
+    def testSizeOfEmptyList(self):
+        """
+        Size of empty list returns 0
+        """
+        # Arrange
+        unorderedList = UnorderedList()
+        # Assert
+        self.assertEqual(unorderedList.size(), 0)
+
+    def testSizeReturnsCorrectLength(self):
+        """
+        Size returns correct length
+        """
+        # Arrange
+        unorderedList = UnorderedList()
+        unorderedList.append(0)
+        unorderedList.append(1)
+        unorderedList.append(2)
+        unorderedList.append(3)
+
+        # Assert
+        self.assertEqual(unorderedList.size(), 4)

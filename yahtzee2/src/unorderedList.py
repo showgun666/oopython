@@ -89,7 +89,30 @@ class UnorderedList():
 
     
     def print_list(self):
-        ...
+        """
+        Prints the contents of the list
+        """
+        list_contents = ""
+        current_node = self.head.next
+        while current_node != None:
+            list_contents += str(current_node.data) + "\n"
+            current_node = current_node.next
+        print(list_contents)
     
     def remove(self, data):
-        ...
+        """
+        Remove node with specified data
+        """
+        previous_node = self.head
+        current_node = self.head.next
+
+        while current_node != None:
+            if current_node.data == data:
+                previous_node.next = current_node.next
+                del current_node
+                return
+            else:
+                previous_node = current_node
+                current_node = current_node.next
+        if current_node == None:
+            raise MissingValue("Value not found!")

@@ -126,7 +126,6 @@ class TestUnorderedList(unittest.TestCase):
         """
         # Arrange
         unorderedList = UnorderedList()
-
         # Assert
         with self.assertRaises(MissingIndex):
             unorderedList.get(0)
@@ -142,7 +141,6 @@ class TestUnorderedList(unittest.TestCase):
         unorderedList.append(1)
         unorderedList.append(2)
         unorderedList.append(3)
-
         # Assert
         with self.assertRaises(MissingIndex):
             unorderedList.get(5)
@@ -157,7 +155,6 @@ class TestUnorderedList(unittest.TestCase):
         unorderedList.append(1)
         unorderedList.append(2)
         unorderedList.append(3)
-
         # Assert
         self.assertEqual(unorderedList.get(0), 0)
         self.assertEqual(unorderedList.get(1), 1)
@@ -175,7 +172,6 @@ class TestUnorderedList(unittest.TestCase):
         unorderedList.append(5)
         unorderedList.append(2)
         unorderedList.append(3)
-
         # Assert
         with self.assertRaises(MissingValue):
             unorderedList.index_of(1)
@@ -191,9 +187,24 @@ class TestUnorderedList(unittest.TestCase):
         unorderedList.append(5)
         unorderedList.append(2)
         unorderedList.append(3)
-
         # Assert
         self.assertEqual(unorderedList.index_of(0), 0)
         self.assertEqual(unorderedList.index_of(5), 1)
         self.assertEqual(unorderedList.index_of(2), 2)
         self.assertEqual(unorderedList.index_of(3), 3)
+
+    def testRemove(self):
+        """
+        Remove removes specified item from list
+        """
+        # Arrange
+        unorderedList = UnorderedList()
+        unorderedList.append(0)
+        unorderedList.append(5)
+        unorderedList.append(2)
+        unorderedList.append(3)
+        # Act
+        unorderedList.remove(5)
+        # Assert
+        self.assertNotEqual(unorderedList.get(1), 5)
+        self.assertEqual(unorderedList.get(2), 3)

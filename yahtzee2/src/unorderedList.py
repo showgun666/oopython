@@ -92,12 +92,10 @@ class UnorderedList():
         """
         Prints the contents of the list
         """
-        list_contents = ""
         current_node = self.head.next
         while current_node != None:
-            list_contents += str(current_node.data) + "\n"
+            print(current_node.data)
             current_node = current_node.next
-        print(list_contents)
     
     def remove(self, data):
         """

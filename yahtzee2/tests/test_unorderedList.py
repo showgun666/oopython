@@ -18,7 +18,7 @@ class TestUnorderedList(unittest.TestCase):
         # Arrange
         unorderedList = UnorderedList()
         # Assert
-        self.assertEqual(unorderedList.head.next, None)
+        self.assertEqual(unorderedList._head.next, None)
 
     def testAppendEmptyUnorderedList(self):
         """
@@ -30,9 +30,9 @@ class TestUnorderedList(unittest.TestCase):
         # Act
         unorderedList.append(0)
         # Assert
-        self.assertNotEqual(unorderedList.head, None)
-        self.assertEqual(unorderedList.head.next.data, 0)
-        self.assertEqual(unorderedList.head.next.next, None)
+        self.assertNotEqual(unorderedList._head, None)
+        self.assertEqual(unorderedList._head.next.data, 0)
+        self.assertEqual(unorderedList._head.next.next, None)
 
     def testAppendMultipleValues(self):
         """
@@ -45,11 +45,11 @@ class TestUnorderedList(unittest.TestCase):
         unorderedList.append(1)
         unorderedList.append(2)
         # Assert
-        self.assertNotEqual(unorderedList.head, None)
-        self.assertEqual(unorderedList.head.next.data, 0)
-        self.assertEqual(unorderedList.head.next.next.data, 1)
-        self.assertEqual(unorderedList.head.next.next.next.data, 2)
-        self.assertEqual(unorderedList.head.next.next.next.next, None)
+        self.assertNotEqual(unorderedList._head, None)
+        self.assertEqual(unorderedList._head.next.data, 0)
+        self.assertEqual(unorderedList._head.next.next.data, 1)
+        self.assertEqual(unorderedList._head.next.next.next.data, 2)
+        self.assertEqual(unorderedList._head.next.next.next.next, None)
 
     def testSetEmptyList(self):
         """
@@ -81,10 +81,10 @@ class TestUnorderedList(unittest.TestCase):
         unorderedList.set(2, "c")
         unorderedList.set(3, "d")
         # Assert
-        self.assertEqual(unorderedList.head.next.data, "a")
-        self.assertEqual(unorderedList.head.next.next.data, "b")
-        self.assertEqual(unorderedList.head.next.next.next.data, "c")
-        self.assertEqual(unorderedList.head.next.next.next.next.data, "d")
+        self.assertEqual(unorderedList._head.next.data, "a")
+        self.assertEqual(unorderedList._head.next.next.data, "b")
+        self.assertEqual(unorderedList._head.next.next.next.data, "c")
+        self.assertEqual(unorderedList._head.next.next.next.next.data, "d")
 
     def testSetIndexOutOfRange(self):
         """

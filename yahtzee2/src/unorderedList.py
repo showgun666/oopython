@@ -14,26 +14,21 @@ class UnorderedList():
         """
         Initiate a new unordered list instance
         """
-        self.head = Node(1)
+        self._head = Node(1) # Head is a node
+        self._tail = self._head # An empty list's tail is also the head
 
     def append(self, data):
         """
         Append data to the end of the unordered list.
         """
-        current_node = self.head
-
-        # Point current_node to the next node in the list until it points to None
-        while current_node.next != None:
-            current_node = current_node.next
-
-        # Point the current node to a new node with the data to be appended to the list.
-        current_node.next = Node(data)
+        self._tail.next = Node(data)
+        self._tail = self._tail.next
 
     def set(self, index, data):
         """
         Set the value of a given index in the list
         """
-        current_node = self.head.next
+        current_node = self._head.next
         i = 0
         while current_node != None:
             if i == index:
@@ -50,7 +45,7 @@ class UnorderedList():
         Get the size of the list
         """
         i = 0
-        current_node = self.head
+        current_node = self._head
 
         while current_node.next != None:
             current_node = current_node.next
@@ -62,7 +57,7 @@ class UnorderedList():
         """
         Return value of index
         """
-        current_node = self.head.next
+        current_node = self._head.next
         i = 0
         while current_node != None:
             if i == index:
@@ -77,7 +72,7 @@ class UnorderedList():
         """
         Returns the index of a given value
         """
-        current_node = self.head.next
+        current_node = self._head.next
         i = 0
         while current_node != None:
             if current_node.data == value:
@@ -90,19 +85,21 @@ class UnorderedList():
     
     def print_list(self):
         """
-        Prints the contents of the list
+        Returns the contents of the list
         """
-        current_node = self.head.next
-        while current_node != None:
-            print(current_node.data)
+        string = ""
+        current_node = self._head.next
+        while current_node:
+            string += str(current_node.data).strip("'").strip("(").strip(")").strip(" ") + "\n"
             current_node = current_node.next
+        return string[:-1]
     
     def remove(self, data):
         """
         Remove node with specified data
         """
-        previous_node = self.head
-        current_node = self.head.next
+        previous_node = self._head
+        current_node = self._head.next
 
         while current_node != None:
             if current_node.data == data:

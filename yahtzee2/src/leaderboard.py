@@ -7,8 +7,9 @@ class Leaderboard():
     """ Leaderboard class """
     def __init__(self, entries=None):
         self.entries = UnorderedList()
-        for i in entries:
-            self.entries.append(i)
+        if entries:
+            for i in entries:
+                self.entries.append(i)
 
     @classmethod
     def load(cls, filename):
@@ -28,16 +29,31 @@ class Leaderboard():
         Saves data from entries to file filename.
         """
         with open(filename, "w") as f:
-            print(self.entries.print_list(), file=f)
+            i = 0
+            while i < len(self):
+                f.write(str(self[i][0]) + ";" + str(self[i][1]) + "\n")
+                i += 1
 
     def add_entry(self, name, score):
         """
         Appends a name and score to entries.
         """
-        self.entries.append(("%s;%s" % (name, score)))
+        self.entries.append(((name, score)))
 
     def remove_entry(self, index):
         """
-        Removes an entry from entries with the value of index.
+        Removes index from entries.
         """
-        self.entries.remove(index)
+        self.entries.remove(self[index])
+
+    def __len__(self):
+        return self.entries.size()
+    
+    def __str__(self):
+        return self.entries.print_list()
+    
+    def __getitem__(self, key):
+        return self.entries.get(key)
+
+    def __setitem__(self, key, value):
+        self.entries.set(key, value)

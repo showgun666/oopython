@@ -1,0 +1,3 @@
+Harry;300
+Hermione;500
+Ron;250

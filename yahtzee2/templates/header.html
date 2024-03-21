@@ -28,6 +28,9 @@
                     <li {%- if request.path == "/reset" %} class="active" {% endif %}><a href="{{ url_for('reset') }}">Reset</a></li>
                 </div>
                 <div class ="nav-button">
+                    <li {%- if request.path == "/leaderboard" %} class="active" {% endif %}><a href="{{ url_for('leaderboard') }}">Leaderboard</a></li>
+                </div>
+                <div class ="nav-button">
                     <li {%- if request.path == "/about" %} class="active" {% endif %}><a href="{{ url_for('about') }}">About</a></li>
                 </div>
             </ul>

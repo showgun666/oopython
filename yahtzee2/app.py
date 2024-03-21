@@ -8,6 +8,7 @@ import re
 from flask import Flask, render_template, request, redirect, url_for, session
 from src.hand import Hand
 from src.scoreboard import Scoreboard
+from src.leaderboard import Leaderboard
 
 app = Flask(__name__)
 app.secret_key = re.sub(r"[^a-z\d]", "", os.path.realpath(__file__))
@@ -28,6 +29,7 @@ def init():
     session["total_points"] = game_scoreboard.get_total_points()
     session["message"] = ""
     session["rerolls"] = 0
+    session["finished"] = 0
 
     return redirect(url_for('main'))
 
@@ -38,9 +40,10 @@ def main():
     game_hand = Hand(session["hand"])
     game_scoreboard = Scoreboard.from_dict(session["rules"])
     total_points = session["total_points"]
+    finished = session["finished"]
 
     if game_scoreboard.finished():
-        session["message"] = "Game is already finished. Press Play or Reset to start a new game."
+        session["message"] = "Game finished! Final score: " + str(total_points) + " points."
 
     # Get message from session
     if session["message"]:
@@ -79,7 +82,8 @@ def main():
         points = scored_points_dic,
         rule_values = rule_values,
         total_points = total_points,
-        message = message
+        message = message,
+        finished = finished
         )
 
 @app.route("/roll_selected_dice", methods=["POST"])
@@ -133,9 +137,31 @@ def score_rule():
         session["message"] = request.args.get('rule') + " is already scored!"
 
     if game_scoreboard.finished():
-        final_score = str(game_scoreboard.get_total_points())
-        session["message"] = "Game finished! Final score: " + final_score + " points."
+        session["finished"] = 1
     return redirect(url_for('main'))
+
+@app.route("/enter_name_to_leaderboard", methods=["POST"])
+def enter_name_to_leaderboard():
+    """ Route for entering name to leaderboard """
+    lb = Leaderboard.load("leaderboard.txt")
+    lb.add_entry(request.form.get("name"), session["total_points"])
+    lb.save("leaderboard.txt")
+    return redirect(url_for('init'))
+
+@app.route("/leaderboard")
+def leaderboard():
+    """ Route for viewing leaderboard """
+    lb = Leaderboard.load("leaderboard.txt")
+
+    return render_template("leaderboard.html", leaderboard=lb)
+
+@app.route("/process_deletion", methods=["POST"])
+def process_deletion():
+    """ Process deletion of entry in leaderboard route """
+    lb = Leaderboard.load("leaderboard.txt")
+    lb.remove_entry(int(request.form["selected_index"]))
+    lb.save("leaderboard.txt")
+    return redirect(url_for('leaderboard'))
 
 @app.route("/about")
 def about():

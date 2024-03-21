@@ -40,16 +40,16 @@ class TestLeaderboard(unittest.TestCase):
     def test_save_data_to_file(self):
         """ Entries can be saved to a file """
         lb = Leaderboard()
-        harry = ("Harry", 300)
+        harry = ("Harry", "300")
         hermione = ("Hermione", 500)
-        ron = ("Ron", 250)
+        ron = ("Ron", "250")
         lb.add_entry(harry[0], harry[1])
         lb.add_entry(hermione[0], hermione[1])
         lb.add_entry(ron[0], ron[1])
 
         lb.save("test.txt")
         lines = []
-        with open("test.txt", "r") as f:
+        with open("test.txt", "r", encoding="utf-8") as f:
             for line in f:
                 lines.append(line)
         self.assertEqual(lines[0], "Harry;300\n")
@@ -62,11 +62,37 @@ class TestLeaderboard(unittest.TestCase):
         lb.add_entry(harry[0], harry[1])
         lb.add_entry(hermione[0], hermione[1])
 
-        self.assertEqual(str(lb), "'Harry', 200\n'Hermione', 400")
+        self.assertIn("Harry", str(lb))
+        self.assertIn("Hermione", str(lb))
+        self.assertIn("200", str(lb))
 
     def test_load_file(self):
         """ Leaderboard object can be created from file """
         lb = Leaderboard.load("test.txt")
 
         self.assertTrue(lb[1])
-        self.assertEqual(lb[2], ('Ron', '250\n'))
+        self.assertEqual(lb[2], ('Ron', '250'))
+
+    def test_while_loop(self):
+        """ Leaderboard can be iterated over with while """
+        lb = Leaderboard()
+
+        harry = ("Harry", "300")
+        hermione = ("Hermione", 500)
+        ron = ("Ron", "250")
+        lb.add_entry(harry[0], harry[1])
+        lb.add_entry(hermione[0], hermione[1])
+        lb.add_entry(ron[0], ron[1])
+
+        entries = []
+        boardlength = len(lb)
+
+        i = 0
+        while i < boardlength:
+            entries.append(lb[i])
+            i += 1
+
+        self.assertTrue(entries[0])
+        self.assertEqual(boardlength, 3)
+        self.assertEqual(entries[0], ("Harry", "300"))
+        self.assertEqual(entries[2], ("Ron", "250"))

@@ -1,0 +1,30 @@
+<table>
+<form action="{{ url_for('score_rule') }}">
+    <tr>
+        <th>Choose</th>
+        <th>Worth</th>
+        <th>Rule</th>
+        <th>Already Scored</th>
+    </tr>
+        {% for rule in rules %}
+        <tr>
+        <td>
+            <input type="radio" id="rule" name="rule" value="{{ rule }}">
+        </td><td>
+            <p> {{ rule_values[rule] }} </p>
+        </td><td>
+            <label for="{{ rule }}">{{ rule }}</label>
+        </td><td>
+            <p> 
+                {% if points[rule] >= 0 %}
+                    {{ points[rule] }} 
+                {% else %}
+                    {{ " " }}
+                {% endif %}
+            </p>
+        </td>
+        </tr>
+        {% endfor %}
+    <button class="btn btn-default" type="submit" value="Score">Score</button>
+</form>
+</table>

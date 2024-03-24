@@ -1,14 +1,12 @@
 
 <table>
     <tr>
-        <th>Entry</th>
-        <th>Name</th>
         <th>Score</th>
+        <th>Name</th>
     </tr>
     {% for i in range(leaderboard | length) %}
         {% if i < leaderboard | length  %}
             <tr>
-                <td> {{ i + 1 }} </td>
                 <td> {{ leaderboard[i][0] }} </td>
                 <td> {{ leaderboard[i][1] }} </td>
             </tr>

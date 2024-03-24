@@ -40,9 +40,9 @@ class TestLeaderboard(unittest.TestCase):
     def test_save_data_to_file(self):
         """ Entries can be saved to a file """
         lb = Leaderboard()
-        harry = ("Harry", "300")
-        hermione = ("Hermione", 500)
-        ron = ("Ron", "250")
+        harry = ("300", "Harry")
+        hermione = (500, "Hermione")
+        ron = ("250", "Ron")
         lb.add_entry(harry[0], harry[1])
         lb.add_entry(hermione[0], hermione[1])
         lb.add_entry(ron[0], ron[1])
@@ -52,7 +52,7 @@ class TestLeaderboard(unittest.TestCase):
         with open("test.txt", "r", encoding="utf-8") as f:
             for line in f:
                 lines.append(line)
-        self.assertEqual(lines[0], "Harry;300\n")
+        self.assertEqual("300;Harry\n", lines[0])
 
     def test_dunder_string(self):
         """ Entries can be printed with dunder method """
@@ -71,7 +71,7 @@ class TestLeaderboard(unittest.TestCase):
         lb = Leaderboard.load("test.txt")
 
         self.assertTrue(lb[1])
-        self.assertEqual(lb[2], ('Ron', '250'))
+        self.assertEqual(lb[2], ('250', 'Ron'))
 
     def test_while_loop(self):
         """ Leaderboard can be iterated over with while """

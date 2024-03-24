@@ -2,7 +2,7 @@
 Denna modul innehåller klassen leaderboard som innehåller en unordered list
 Leaderboard hanterar hur data lagras och hämtas från unordered list.
 """
-from src.unorderedlist import UnorderedList
+from src.unorderedList import UnorderedList
 
 class Leaderboard():
     """ Leaderboard class """
@@ -34,7 +34,7 @@ class Leaderboard():
         with open(filename, "w", encoding="utf-8") as f:
             i = 0
             while i < len(self):
-                string = self[i][0] + ";" + str(self[i][1]) + "\n"
+                string = str(self[i][0]) + ";" + self[i][1] + "\n"
                 string.strip()
                 if string:
                     f.write(string)

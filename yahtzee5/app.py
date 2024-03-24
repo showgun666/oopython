@@ -9,6 +9,7 @@ from flask import Flask, render_template, request, redirect, url_for, session
 from src.hand import Hand
 from src.scoreboard import Scoreboard
 from src.leaderboard import Leaderboard
+from src.sort import recursive_insertion
 
 app = Flask(__name__)
 app.secret_key = re.sub(r"[^a-z\d]", "", os.path.realpath(__file__))
@@ -144,7 +145,7 @@ def score_rule():
 def enter_name_to_leaderboard():
     """ Route for entering name to leaderboard """
     lb = Leaderboard.load("leaderboard.txt")
-    lb.add_entry(request.form.get("name"), session["total_points"])
+    lb.add_entry(session["total_points"], request.form.get("name"))
     lb.save("leaderboard.txt")
     return redirect(url_for('init'))
 
@@ -152,8 +153,14 @@ def enter_name_to_leaderboard():
 def leaderboard():
     """ Route for viewing leaderboard """
     lb = Leaderboard.load("leaderboard.txt")
+    sorted_entries = recursive_insertion(lb.entries, 0, True)
 
-    return render_template("leaderboard.html", leaderboard=lb)
+    sorted_leaderboard = Leaderboard()
+
+    for i in range(sorted_entries.size()):
+        sorted_leaderboard.add_entry(sorted_entries.get(i)[0], sorted_entries.get(i)[1])
+
+    return render_template("leaderboard.html", leaderboard=sorted_leaderboard)
 
 @app.route("/process_deletion", methods=["POST"])
 def process_deletion():

@@ -1,0 +1,10 @@
+{% include 'header.html' %}
+
+<div class="container" role="leaderboard">
+    <div>
+        {{ leaderboard | length }} entries on leaderboard
+    </div>
+    {% include 'tables/leaderboard.html' %}
+    {% include 'forms/delete_entry.html' %}
+</div>
+{% include 'footer.html' %}             

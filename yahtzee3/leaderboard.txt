@@ -1,0 +1,7 @@
+name;80
+Gottfrid;91
+BoyzRbacK;158
+Markus;188
+Bamse;104
+Ett Namn;130
+LatestBoss;104

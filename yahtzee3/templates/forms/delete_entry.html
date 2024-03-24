@@ -1,0 +1,11 @@
+<form role="form" action="{{ url_for('process_deletion') }}" method="POST">
+    <label for="selected_index">Select entry:</label>
+    <select id="selected_index" name="selected_index">
+        {% for i in range(leaderboard | length) %}
+            {% if i < leaderboard | length  %}
+                <option value="{{ i }}">{{ leaderboard[i][0] }} {{ leaderboard[i][1] }} </option>
+            {% endif %}
+        {% endfor %}
+    </select>
+    <button type="submit">Delete</button>
+</form>

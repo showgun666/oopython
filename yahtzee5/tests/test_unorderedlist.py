@@ -2,7 +2,7 @@
 #pylint: disable=protected-access
 """ Module for testing the class unorderedList """
 import unittest
-from src.unorderedList import UnorderedList
+from src.unordered_list import UnorderedList
 from src.errors import MissingIndex
 from src.errors import MissingValue
 

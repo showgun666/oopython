@@ -4,11 +4,11 @@
         <th>Score</th>
         <th>Name</th>
     </tr>
-    {% for i in range(leaderboard | length) %}
-        {% if i < leaderboard | length  %}
+    {% for i in range(sorted_leaderboard | length) %}
+        {% if i < sorted_leaderboard | length  %}
             <tr>
-                <td> {{ leaderboard[i][0] }} </td>
-                <td> {{ leaderboard[i][1] }} </td>
+                <td> {{ sorted_leaderboard[i][0] }} </td>
+                <td> {{ sorted_leaderboard[i][1] }} </td>
             </tr>
         {% endif %}
     {% endfor %}

@@ -10,27 +10,38 @@ from src.hand import Hand
 from src.scoreboard import Scoreboard
 from src.leaderboard import Leaderboard
 from src.sort import recursive_insertion
+from src.queue import Queue
 
 app = Flask(__name__)
 app.secret_key = re.sub(r"[^a-z\d]", "", os.path.realpath(__file__))
 
+DEFAULT_PLAYERS_MAX = 4
+
 @app.route("/")
 def index():
     """ Index route """
-    return render_template("index.html")
+    return render_template("index.html", session=session)
 
 @app.route("/init", methods=["GET"])
 def init():
     """ Intialize values needed in session """
-    game_scoreboard = Scoreboard()
-    game_hand = Hand()
+    game_scoreboards = []
+    for i in range(DEFAULT_PLAYERS_MAX):
+        game_scoreboards.append(Scoreboard(i))
+        session["rules" + str(i)] = game_scoreboards[i].get_rules()
+        session["total_points" + str(i)] = game_scoreboards[i].get_total_points()
 
-    session["rules"] = game_scoreboard.get_rules()
+    game_hand = Hand()
     session["hand"] = game_hand.to_list()
-    session["total_points"] = game_scoreboard.get_total_points()
+
     session["message"] = ""
     session["rerolls"] = 0
     session["finished"] = 0
+
+    session["debug"] = ""
+
+    session["player_amount"] = 1
+    session["player_queue"] = [0]
 
     return redirect(url_for('main'))
 
@@ -38,53 +49,69 @@ def init():
 def main():
     """ Main route """
     # Create game objects from session
+    player_amount = session["player_amount"]
     game_hand = Hand(session["hand"])
-    game_scoreboard = Scoreboard.from_dict(session["rules"])
-    total_points = session["total_points"]
+    game_scoreboards = []
+    total_points = []
+    rules_point_list = []
     finished = session["finished"]
+    player_queue = Queue()
 
-    if game_scoreboard.finished():
-        session["message"] = "Game finished! Final score: " + str(total_points) + " points."
-
-    # Get message from session
-    if session["message"]:
-        message = session["message"]
-        session["message"] = ""
+    # Queue
+    if len(session["player_queue"]) != int(player_amount):
+        for i in range(int(session["player_amount"])):
+            player_queue.enqueue(i)
     else:
-        message = ""
+        for i in session["player_queue"]:
+            player_queue.enqueue(i)
+    session["player_queue"] = player_queue.to_list()
 
-    rules_point_list = list(game_scoreboard.get_rules().keys())
+    # Current Player
+    current_player = int(player_queue.peek())
+    session["current_player"] = current_player
+
+    # All scoreboards total points and rules
+    for i in range(int(player_amount)):
+        game_scoreboards.append(Scoreboard.from_dict(session["rules" + str(i)]))
+        total_points.append(session["total_points" + str(i)])
+        rules_point_list.append(list(game_scoreboards[i].get_rules().keys()))
+
+    # Is finished
+    if all(scoreboard.finished() for scoreboard in game_scoreboards):
+        session["finished"] = 1
+        finished = 1
+
+    # Message
+    if all(scoreboard.finished() for scoreboard in game_scoreboards):
+        session["message"] = "Game finished! Final score: " + str(max(total_points)) + " points."
+        session["finished"] = True
+    message = session["message"]
+    session["message"] = ""
+
     scored_points_dic = {}
-
-    for rule in game_scoreboard.get_rules():
-        scored_points_dic[rule] = game_scoreboard.get_rules()[rule]
-
-    # Get values of each die
-    d1 = game_hand.dice[0].get_value()
-    d2 = game_hand.dice[1].get_value()
-    d3 = game_hand.dice[2].get_value()
-    d4 = game_hand.dice[3].get_value()
-    d5 = game_hand.dice[4].get_value()
+    for rule in game_scoreboards[current_player].get_rules():
+        scored_points_dic[rule] = game_scoreboards[current_player].get_rules()[rule]
 
     # Get points from each rule for current hand
     rule_values = {}
-    for rule in game_scoreboard.rules_list:
+    for rule in game_scoreboards[current_player].rules_list:
         rule_values[rule.name] = rule.points(game_hand)
 
     # Returns value of every die in hand.
     return render_template(
         "main.html",
-        dice1 = d1,
-        dice2 = d2,
-        dice3 = d3,
-        dice4 = d4,
-        dice5 = d5,
-        rules = rules_point_list,
+        dice1 = game_hand.dice[0].get_value(),
+        dice2 = game_hand.dice[1].get_value(),
+        dice3 = game_hand.dice[2].get_value(),
+        dice4 = game_hand.dice[3].get_value(),
+        dice5 = game_hand.dice[4].get_value(),
+        rules = rules_point_list[current_player],
         points = scored_points_dic,
         rule_values = rule_values,
         total_points = total_points,
         message = message,
-        finished = finished
+        finished = finished,
+        player_amount = player_amount,
         )
 
 @app.route("/roll_selected_dice", methods=["POST"])
@@ -120,47 +147,64 @@ def roll_selected_dice():
 def score_rule():
     """ Score a rule route """
     game_hand = Hand(session["hand"])
-    game_scoreboard = Scoreboard.from_dict(session["rules"])
+    player_queue = Queue()
+    for i in session["player_queue"]:
+        player_queue.enqueue(i)
+    player = str(player_queue.peek())
+    game_scoreboard = Scoreboard.from_dict(session["rules" + player])
+    session["rules" + player] = game_scoreboard.get_rules()
+    session["total_points" + player] = game_scoreboard.get_total_points()
 
     if game_scoreboard.get_points(request.args.get('rule')) == -1:
-        # Add points
         game_scoreboard.add_points(request.args.get('rule'), game_hand)
-        # Roll hand
         game_hand.roll()
 
         # Update Session
-        session["rules"] = game_scoreboard.get_rules()
+        session["rules" + player] = game_scoreboard.get_rules()
         session["hand"] = game_hand.to_list()
-        session["total_points"] = game_scoreboard.get_total_points()
+        session["total_points" + player] = game_scoreboard.get_total_points()
         session["rerolls"] = 0
+
+        # Update the queue
+        player = int(player_queue.dequeue())
+        player_queue.enqueue(player)
+        session["player_queue"] = player_queue.to_list()
     else:
         # Say the rule is already scored. Value stored in session
         session["message"] = request.args.get('rule') + " is already scored!"
 
-    if game_scoreboard.finished():
-        session["finished"] = 1
     return redirect(url_for('main'))
 
 @app.route("/enter_name_to_leaderboard", methods=["POST"])
 def enter_name_to_leaderboard():
     """ Route for entering name to leaderboard """
     lb = Leaderboard.load("leaderboard.txt")
-    lb.add_entry(session["total_points"], request.form.get("name"))
+    pts = [
+        session["total_points0"],
+        session["total_points1"],
+        session["total_points2"],
+        session["total_points3"]
+        ]
+    points = max(pts)
+    lb.add_entry(points, request.form.get("name"))
     lb.save("leaderboard.txt")
     return redirect(url_for('init'))
 
 @app.route("/leaderboard")
 def leaderboard():
     """ Route for viewing leaderboard """
-    lb = Leaderboard.load("leaderboard.txt")
-    sorted_entries = recursive_insertion(lb.entries, 0, True)
+    unsorted_entries = Leaderboard.load("leaderboard.txt")
+    sorted_entries = recursive_insertion(Leaderboard.load("leaderboard.txt").entries, 1, True)
 
     sorted_leaderboard = Leaderboard()
-
     for i in range(sorted_entries.size()):
         sorted_leaderboard.add_entry(sorted_entries.get(i)[0], sorted_entries.get(i)[1])
 
-    return render_template("leaderboard.html", leaderboard=sorted_leaderboard)
+    return render_template(
+        "leaderboard.html",
+        sorted_leaderboard=sorted_leaderboard,
+        unsorted_leaderboard=unsorted_entries
+        )
 
 @app.route("/process_deletion", methods=["POST"])
 def process_deletion():
@@ -168,7 +212,14 @@ def process_deletion():
     lb = Leaderboard.load("leaderboard.txt")
     lb.remove_entry(int(request.form["selected_index"]))
     lb.save("leaderboard.txt")
+
     return redirect(url_for('leaderboard'))
+
+@app.route("/change_player_amount", methods=["POST"])
+def change_player_amount():
+    """ Change player amount route """
+    session["player_amount"] = request.form["selected_number"]
+    return redirect(url_for('main'))
 
 @app.route("/about")
 def about():

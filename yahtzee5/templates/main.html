@@ -2,6 +2,7 @@
 
 <div class="container" role="main">
     <div class="page-header">
+        <h1> Players: {{ player_amount }}</h1>
         <div class="points-display">
             <h1>
                 {{ total_points }}
@@ -97,5 +98,6 @@
     {% if finished == 1 %}
         {% include 'forms/enter_name.html' %}
     {% endif %}
+    {% include 'forms/player_amount_select.html' %}
 </div>
 {% include 'footer.html' %}             

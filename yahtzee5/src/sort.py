@@ -1,7 +1,6 @@
 """
 Denna modul innehåller funktioner som sorterar UnorderedList
 """
-from src.unorderedList import UnorderedList
 
 def insertion_sort(items):
     """ Insertion sort """
@@ -15,19 +14,19 @@ def insertion_sort(items):
             j -= 1
     return items
 
-def recursive_insertion(items, i, reverse=False):
+def recursive_insertion(items, i, rvrs=False):
     """ Recursive insertion sort """
     # Base case
     if i >= items.size():
         return items
-    
+
     # Sort and insert according to insertion sort
-    while i > 0 and ((not reverse and items.get(i) < items.get(i-1)) or (reverse and items.get(i) > items.get(i-1))):
+    while i > 0 and ((not rvrs and items[i] < items[i-1]) or (rvrs and items[i] > items[i-1])):
         val1 = items.get(i - 1)
         val2 = items.get(i)
         items.set(i, val1)
         items.set(i - 1, val2)
         i -= 1
-    
+
     # Recursion
-    return recursive_insertion(items, i + 1, reverse)
+    return recursive_insertion(items, i + 1, rvrs)

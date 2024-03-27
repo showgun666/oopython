@@ -1,9 +1,9 @@
 <form role="form" action="{{ url_for('process_deletion') }}" method="POST">
     <label for="selected_index">Select entry:</label>
     <select id="selected_index" name="selected_index">
-        {% for i in range(leaderboard | length) %}
-            {% if i < leaderboard | length  %}
-                <option value="{{ i }}">{{ leaderboard[i][0] }} {{ leaderboard[i][1] }} </option>
+        {% for i in range(unsorted_leaderboard | length) %}
+            {% if i < unsorted_leaderboard | length  %}
+                <option value="{{ i }}">{{ unsorted_leaderboard[i][0] }} {{ unsorted_leaderboard[i][1] }} </option>
             {% endif %}
         {% endfor %}
     </select>

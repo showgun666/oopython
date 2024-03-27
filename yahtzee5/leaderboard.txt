@@ -1,3 +1,6 @@
-137;Estefan
-218;MAX
-113;Lucy
+125;Harry
+193;0Ron
+187;Hermione
+088;TheFool
+097;NoCigarr
+066;StraightLoss

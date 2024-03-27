@@ -2,7 +2,7 @@
 Denna modul innehåller klassen leaderboard som innehåller en unordered list
 Leaderboard hanterar hur data lagras och hämtas från unordered list.
 """
-from src.unorderedList import UnorderedList
+from src.unordered_list import UnorderedList
 
 class Leaderboard():
     """ Leaderboard class """
@@ -23,8 +23,8 @@ class Leaderboard():
             for line in f:
                 line = line.strip()
                 if line:
-                    name, score = line.split(";")
-                    instance.add_entry(name, score)
+                    identification, pts = line.split(";")
+                    instance.add_entry(identification, pts)
         return instance
 
     def save(self, filename):
@@ -40,11 +40,15 @@ class Leaderboard():
                     f.write(string)
                 i += 1
 
-    def add_entry(self, name, score):
+    def add_entry(self, score, name):
         """
         Appends a name and score to entries.
         """
-        self.entries.append(((name, score)))
+        to_score = str(score)
+        while len(to_score) < 3:
+            to_score = "0" + to_score
+
+        self.entries.append(((to_score, name)))
 
     def remove_entry(self, index):
         """

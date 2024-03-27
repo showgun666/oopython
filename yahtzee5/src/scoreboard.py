@@ -7,7 +7,9 @@ import src.rules as r
 class Scoreboard():
     " Class for scoring Yahtzee game. "
     # Initialize the object
-    def __init__(self):
+    def __init__(self, ownerid=None):
+        self.ownerid = ownerid
+
         self.rules_list = [
             r.Ones(),
             r.Twos(),
@@ -109,9 +111,9 @@ class Scoreboard():
     # points : dictionary with key rule, value points (value rewarded or -1 for unused rule)
     # Return Scoreboard object
     @classmethod
-    def from_dict(cls, points):
+    def from_dict(cls, points, ownerid=None):
         " Create a new scoreboard object from a dictionary. "
-        instance = cls()
+        instance = cls(ownerid)
         for key in points.keys():
             instance._rules[key] = points[key]
 

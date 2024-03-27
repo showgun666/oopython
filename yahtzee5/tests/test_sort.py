@@ -3,7 +3,7 @@
 """ Module for testing the sort module """
 import unittest
 from src.sort import insertion_sort, recursive_insertion
-from src.unorderedList import UnorderedList
+from src.unordered_list import UnorderedList
 
 class TestSort(unittest.TestCase):
     """
@@ -43,7 +43,7 @@ class TestSort(unittest.TestCase):
         uol.append(2)
         uol.append(11)
 
-        sorted_list = recursive_insertion(uol, 0)
+        sorted_list = recursive_insertion(uol, 1)
 
         self.assertEqual(sorted_list.get(0), 1)
         self.assertEqual(sorted_list.get(1), 2)
@@ -69,7 +69,7 @@ class TestSort(unittest.TestCase):
         uol.append("Dbwebb")
         uol.append("dbwebb")
 
-        sorted_list = recursive_insertion(uol, 0)
+        sorted_list = recursive_insertion(uol, 1)
 
         self.assertEqual(sorted_list.get(0), "33")
         self.assertEqual(sorted_list.get(1), "DUBBelDATA")
@@ -93,7 +93,7 @@ class TestSort(unittest.TestCase):
         uol.append(("bab", "425"))
         uol.append(("eb", "1325"))
 
-        sorted_list = recursive_insertion(uol, 0)
+        sorted_list = recursive_insertion(uol, 1)
 
         self.assertEqual(sorted_list.get(0)[0], "ab")
         self.assertEqual(sorted_list.get(1)[0], "abba")
@@ -112,9 +112,28 @@ class TestSort(unittest.TestCase):
         uol.append(6)
         uol.append(3)
 
-        sorted_list = recursive_insertion(uol, 0, True)
+        sorted_list = recursive_insertion(uol, 1, True)
 
         self.assertEqual(sorted_list.get(0), 33)
         self.assertEqual(sorted_list.get(1), 6)
         self.assertEqual(sorted_list.get(2), 3)
         self.assertEqual(sorted_list.get(3), 1)
+
+    def test_recursive_insertion_empty_list(self):
+        """
+        recursive_insertion returns None if given list is empty
+        """
+        uol = UnorderedList()
+        new_list = recursive_insertion(uol, 1)
+
+        self.assertEqual(new_list.size(), 0)
+
+    def test_recursive_insertion_one_index_list(self):
+        """
+        recursive_insertion can sort a list with one index
+        """
+        uol = UnorderedList()
+        uol.append(1)
+        new_list = recursive_insertion(uol, 1)
+
+        self.assertEqual(new_list[0], 1)

@@ -121,3 +121,21 @@ class UnorderedList():
 
         if current_node is None:
             raise MissingValue("Value not found!")
+
+    def __len__(self):
+        """
+        Get the length of the list
+        """
+        return self.size()
+
+    def __getitem__(self, key):
+        """
+        subscriptable method
+        """
+        return self.get(key)
+
+    def __setitem__(self, key, value):
+        """
+        item assignment method
+        """
+        self.set(key, value)

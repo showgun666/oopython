@@ -24,9 +24,9 @@ class TestLeaderboard(unittest.TestCase):
     def test_remove_entry_from_leaderboard(self):
         """ Entries can be removed from leaderboard """
         lb = Leaderboard()
-        harry = ("Harry", 300)
-        hermione = ("Hermione", 500)
-        ron = ("Ron", 250)
+        harry = ("Harry", "300")
+        hermione = ("Hermione", "500")
+        ron = ("Ron", "250")
         lb.add_entry(harry[0], harry[1])
         lb.add_entry(hermione[0], hermione[1])
         lb.add_entry(ron[0], ron[1])
@@ -96,3 +96,26 @@ class TestLeaderboard(unittest.TestCase):
         self.assertEqual(boardlength, 3)
         self.assertEqual(entries[0], ("Harry", "300"))
         self.assertEqual(entries[2], ("Ron", "250"))
+
+    def test_add_entry_with_small_length(self):
+        """ Leaderboard smaller length gets 0s added """
+        lb = Leaderboard()
+
+        harry = ("Harry", "3")
+        hermione = ("Hermione", "50")
+        ron = ("Ron", "2")
+        lb.add_entry(harry[1], harry[0])
+        lb.add_entry(hermione[1], hermione[0])
+        lb.add_entry(ron[1], ron[0])
+
+        entries = []
+        boardlength = len(lb)
+
+        i = 0
+        while i < boardlength:
+            entries.append(lb[i])
+            i += 1
+
+        self.assertEqual(entries[0], ("003", "Harry"))
+        self.assertEqual(entries[1], ("050", "Hermione"))
+        self.assertEqual(entries[2], ("002", "Ron"))

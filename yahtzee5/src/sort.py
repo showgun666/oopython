@@ -14,7 +14,7 @@ def insertion_sort(items):
             j -= 1
     return items
 
-def recursive_insertion(items, i, rvrs=False):
+def recursive_insertion(items, i=1, rvrs=False):
     """ Recursive insertion sort """
     # Base case
     if i >= items.size():

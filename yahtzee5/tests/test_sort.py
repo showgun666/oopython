@@ -137,3 +137,22 @@ class TestSort(unittest.TestCase):
         new_list = recursive_insertion(uol, 1)
 
         self.assertEqual(new_list[0], 1)
+
+    def test_dbwebb_1(self):
+        " Test dbwebb 1"
+        lista = [3, 5, 111, 1, 34, 0, 11]
+        listan = recursive_insertion(lista)
+
+        self.assertEqual(listan[0], 0)
+    def test_dbwebb_2(self):
+        " Test dbwebb 2"
+        lista = ['hej', '22', 'haha', '2', '34', '222']
+        listan = recursive_insertion(lista)
+        self.assertEqual(listan[0], "2")
+
+    def test_dbwebb_3(self):
+        " Test dbwebb 3"
+        lista = [3, 5, 111, 1, 34, 0, 11]
+        listan = recursive_insertion(lista)
+        listann = recursive_insertion(listan)
+        self.assertEqual(listann[0], 0)

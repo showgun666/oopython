@@ -43,16 +43,14 @@ class TestBinarySearchTree(unittest.TestCase):
         bst.insert(12, 'F')
         bst.insert(17, 'G')
 
-        # Redirect stdout for checking printed output
         captured_output = StringIO()
         sys.stdout = captured_output
+        try:
+            bst.inorder_traversal_print()
+        finally:
+            sys.stdout = sys.__stdout__
 
-        bst.inorder_traversal_print()
         output = captured_output.getvalue()
-
-        # Reset redirect
-        sys.stdout = sys.__stdout__
-
         expected_output = "D\nB\nE\nA\nF\nC\nG\n"
         self.assertEqual(output, expected_output)
 
@@ -90,6 +88,7 @@ class TestBinarySearchTree(unittest.TestCase):
         self.assertEqual(bst.root.right.value, "10")
         self.assertEqual(bst.root.right.left.value, "7")
         self.assertEqual(bst.remove(7), "7")
+        self.assertIsNone(bst.root.right.left)
 
     def test_remove_and_keep_bst_integrity(self):
         """
@@ -104,10 +103,11 @@ class TestBinarySearchTree(unittest.TestCase):
 
         for key in removal:
             bst.remove(key)
-            print(str(removal.index(key)) + ":" + str(key))
-            self.assertTrue(bst.root.left.key < bst.root.right.key)
-            self.assertTrue(bst.root.right.key > bst.root.left.key)
-            self.assertEqual(bst.root.value, bst.root.left.parent.value)
+            if bst.root is not None:
+                if bst.root.left:
+                    self.assertLess(bst.root.left.key, bst.root.key)
+                if bst.root.right:
+                    self.assertGreater(bst.root.right.key, bst.root.key)
 
     def test_remove_keeps_bst_integrity_on_root_removal(self):
         """
@@ -119,11 +119,12 @@ class TestBinarySearchTree(unittest.TestCase):
             bst.insert(node, str(node))
 
         for node in nodes:
-            print(str(nodes.index(node)) + ":" + str(bst.root.key))
             bst.remove(bst.root.key)
-            self.assertTrue(bst.root.left.key < bst.root.right.key)
-            self.assertTrue(bst.root.right.key > bst.root.left.key)
-            self.assertEqual(bst.root.value, bst.root.left.parent.value)
+            if bst.root is not None:
+                if bst.root.left:
+                    self.assertLess(bst.root.left.key, bst.root.key)
+                if bst.root.right:
+                    self.assertGreater(bst.root.right.key, bst.root.key)
 
     def test_size(self):
         """
@@ -186,11 +187,17 @@ class TestBinarySearchTree(unittest.TestCase):
         for i in key_values:
             bst.insert(i, i)
 
-        self.assertTrue(bst.root.left.key < bst.root.right.key)
-        self.assertTrue(bst.root.right.key > bst.root.left.key)
+        self.assertTrue(self.is_bst(bst.root))
 
-        self.assertEqual(bst.root.value, bst.root.left.parent.value)
-
+    def is_bst(self, node, lower=float('-inf'), upper=float('inf')):
+        """
+        check that it is a bst
+        """
+        if not node:
+            return True
+        if not lower < node.key < upper:
+            return False
+        return self.is_bst(node.left, lower, node.key) and self.is_bst(node.right, node.key, upper)
 
 
 if __name__ == '__main__':

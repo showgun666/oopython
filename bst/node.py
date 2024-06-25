@@ -39,12 +39,12 @@ class Node():
 
     def __lt__(self, other):
         "method to check if self is less than other"
-        return self.key < other.key
+        return self.key < other
 
     def __gt__(self, other):
         "method to check if self is greater than other"
-        return self.key > other.key
+        return self.key > other
 
     def __eq__(self, other):
         "method to check if self is equal to other"
-        return self.key == other.key
+        return self.key == other

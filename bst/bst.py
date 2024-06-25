@@ -1,7 +1,7 @@
 "Binary search tree class"
 from node import Node
 
-class BinarySearchTree():
+class BinarySearchTree:
     "binary search tree class"
     def __init__(self):
         self.root = None
@@ -13,8 +13,7 @@ class BinarySearchTree():
     def insert_recursive(self, node, key, value, parent):
         "method for inserting a value into the tree recursively"
         if node is None:
-            new_node = Node(key, value, parent)
-            return new_node
+            return Node(key, value, parent)
 
         if key < node.key:
             node.left = self.insert_recursive(node.left, key, value, node)
@@ -54,6 +53,8 @@ class BinarySearchTree():
     def remove(self, key):
         "method for removing a value from the tree"
         self.root, removed_value = self.remove_recursive(self.root, key)
+        if removed_value is None:
+            raise KeyError("Key not found in the tree")
         return removed_value
 
     def remove_recursive(self, node, key):
@@ -62,41 +63,39 @@ class BinarySearchTree():
             return node, None
 
         if key < node.key:
-            updated_left, removed_value = self.remove_recursive(node.left, key)
-            node.left = updated_left
-            return node, removed_value
-        if key > node.key:
-            updated_right, removed_value = self.remove_recursive(node.right, key)
-            node.right = updated_right
-            return node, removed_value
-        # Node to be removed found
-        removed_value = node.value
-
-        if node.left is None:
-            temp = node.right
-            del node
-            return temp, removed_value
-        if node.right is None:
-            temp = node.left
-            del node
-            return temp, removed_value
-        # Node has both children
-        successor_parent = node
-        successor = node.right
-        while successor.left is not None:
-            successor_parent = successor
-            successor = successor.left
-
-        if successor_parent != node:
-            successor_parent.left = successor.right
+            node.left, removed_value = self.remove_recursive(node.left, key)
+            if node.left is not None:
+                node.left.parent = node
+        elif key > node.key:
+            node.right, removed_value = self.remove_recursive(node.right, key)
+            if node.right is not None:
+                node.right.parent = node
         else:
-            successor_parent.right = successor.right
+            removed_value = node.value
+            if node.left is None:
+                if node.right is not None:
+                    node.right.parent = node.parent
+                return node.right, removed_value
+            if node.right is None:
+                if node.left is not None:
+                    node.left.parent = node.parent
+                return node.left, removed_value
 
-        node.key = successor.key
-        node.value = successor.value
+            # node with two children, get the successor in order 
+            successor = self.find_min(node.right)
+            node.key, node.value = successor.key, successor.value
+            node.right, _ = self.remove_recursive(node.right, successor.key)
+            if node.right is not None:
+                node.right.parent = node
 
-        del successor
         return node, removed_value
+
+    def find_min(self, node):
+        "method to find the node with the minimum key"
+        current = node
+        while current.left is not None:
+            current = current.left
+        return current
 
     def size(self):
         "method for size of the tree"
@@ -106,6 +105,4 @@ class BinarySearchTree():
         "method for recursively getting the size of the tree"
         if node is None:
             return 0
-        left_size = self._size_recursive(node.left)
-        right_size = self._size_recursive(node.right)
-        return left_size + right_size + 1
+        return 1 + self._size_recursive(node.left) + self._size_recursive(node.right)

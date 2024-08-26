@@ -4,7 +4,11 @@
     <div class="page-header">
         <h1>Spellchecker</h1>
         <h2>Welcome to Markus's KMOM10 Spellchecker!</h2>
-        
+        <p>Amount of words in spelling trie: {{ word_count }}</p>
+        <p>words: </p>
+        {% for i in words_list %}
+            <p> {{ i }} </p>
+        {% endfor %}
     </div>
 </div>
 

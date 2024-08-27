@@ -1,0 +1,42 @@
+1.
+    1.
+        Jag läste först igenom allt som skulle implementeras och sedan gick jag igenom och implementerade Trie som en klass. Efter varje metod jag skrev så skrev jag även tester, och försökte därför att först få plats på grundfunktionalitet, att jag kan lägga till ord och sedan skapa ett objekt från en fil så att jag kan enkelt testa och jobba med ett objekt av klassen medan jag kodar den.
+        Jag valde att implementera Node som en egen klass i en egen modul, även om den knappt innehåller någon kod alls. Det kändes mer intuitivt än att ha arbeta med t.ex. listor där första indexvärdet är end-of-word boolean och resterande värden är fler listor eller så. Sedan så förenklar det senare ifall jag(eller någon annan i en arbetsplatsmiljö) bestämmer mig för att det behövs mer funktionalitet i klassen.
+        Det fanns en tanke om att ha en mini-metod som snyggade till strängar, tar bort whitespace, tar bort case-sensitivity osv, men jag tyckte det var enklare med en så liten klass att bara skriva ut det varje gång en sträng används som argument.
+        I min Trie klass så har jag arbetat mycket mer rekursiva metoder. Inte i find_word() då jag väldigt snabbt och enkelt kunde lösa den med en for-loop, men den hade också kunnat skrivas rekursivt bara för att öva mer på det.
+        På de flesta andra metoder så kändes det som att en rekursiv lösning var det enda rimliga. Jag kopierade en del kod från yahtzee och skrev om då jag fortfarande hade ganska svårt att begripa hur rekursiv kod funkar men tycker att det gick ihop ganska hyffsat. Särskilt remove_word() blev mycket enklare när jag arbetade från yahtzee.
+        Särskilt nöjd är jag med prefix_search() metoden där jag tycker att jag löste den första for-loopen som kontrollerar att prefixet som är givet alls finns i trien är väldigt snyggt löst, då jag byter vilket objekt som jag itererar över. Resten är annars samma som get_words(). Jag skapade "privata" funktioner i metoderna. Dessa hade väl kunnat brytas ut som egna funktioner men jag skrev dem en i taget och det blev bara så att jag copy-pasta dem. funktionell kod och tydligt men kan refaktoreras vid behov. De är exakt samma.
+        create_from_file() gjorde jag det enkelt för mig att jag helt enkelt hämtar ut .txt-filen och använder add_word() iterativt till ett objekt som jag returnerar.
+    2.
+        Jag visste inte riktigt hur jag skulle skriva UML för funktioner inuti metoder men jag tänker att det är bara en del av själva metoden så jag gjorde inget särskilt med det. Jag tänker då specifikt på find_word() och prefix_search(). 
+        För mig så är det ganska oklart generellt sett och jag har svårt att få in i mig hur UML ska ritas så jag följde givna exempel och försökte få ihop det på ett bra sätt. Jag skrev helt enkelt in rakt av från uppgift 1 hur klasserna och metoderna skulle se ut och försökte passa ihop det på ett verklighetsenligt sätt. Noder existerar endast i Trie så det är komposition.
+        Jag tycker att en Trie kan ha endast 1 Node då resten av Nodes ligger i andra nodes och den skapas alltid med en root node.
+        Nodes däremot kan innehålla  0 eller oändligheten nodes, även om det inte finns oändligheten tecken så borde koden klara det, men en node kan inte ha flera föräldernodes. Om en förälder blir borttagen så skulle alla barn också försvinna, fast det finns en metod i Trie som kan byta förälder/barn relationer mellan nodes.
+        Jag känner att det inte finns så mycket mer att utveckla kring det annat än att det känns som att det är ett hemskt litet UML men det kan bero på att jag inte gjort några fler extrauppgifter.
+        Jag upplever att mitt diagram stämmer överens med min kod.
+    3.
+        För enhetstesterna så som jag skrev ovan skrev jag enhetstester efter att jag skapat en metod för varje metod. Totalt 8 tester för 7 metoder och 1 exception. 
+        Jag valde att ha en hel del asserts i varje test och de testar lite olika saker i samma test vilket kanske inte är helt korrekt, men det var snabbt och enkelt. Till exempel så testar jag både ifall det går att ta bort ett ord som inte finns och ifall det går att ta bort ett ord som finns i samma enhetstest.
+        Det finns inget test specifikt för add_word(), men alla test börjar med att jag skapar en trie från en fil vilket använder add_word() så väldigt få av de andra testen skulle över huvud taget funka om inte add_word() funkade.
+        Tester är kul men det känns som att det kan vara svårt ibland att vara uppfinningsrik när det kommer till vad man ska testa, men det är nog något som kommer med mer erfarenhet.
+2.
+    Problem/lösningar
+        För mig var det trögaste UML-biten. Det var svårt att visualisera sig vad som behöver göras och vara med samt så är jag väldigt osäker på hur man skriver klassdiagram och behöver använda dokumentation för att veta på vilken sida av pilen som multiplicitet ska skrivas.
+        Rekursiva funktioner är också inte helt enkelt men det kändes som att jag landat i det nu och att nästa gång jag behöver skapa en rekursiv funktion så kommer det kännas betydligt enklare.
+        Jinja-biten och hur man kopplar flask är väl det absolut enklaste för mig. Det kändes som att jag visste precis hur jag skulle göra och bara skrev ihop de bitarna nästan som jag skriver löpande text.
+    Svårighetsgrad
+        Jag har knappt ens tittat på uppgift 4-6 så jag kan inte svara för dem men 1-3 var förhållandevis enkla och hela slutprojektet kändes enklare än många kmom som vi gjort. Det är självklart dels för att jag inte gjorde extrauppgifter men också ett tecken på att jag lärt mig och befäst många kunskaper.
+    Tidsåtgång
+        Flask/Jinjabitarna har jag lagt kanske 5 timmar på.
+        Trieklassen + enhetstester har jag kanske lagt 8 timmar på. Svårt att säga då jag skrev den för ganska många veckor sedan.
+        UML tror jag tog mig 2 timmar
+    Bra slutprojekt?
+        Jag tycker det var ett bra slutprojekt. Det vi gjort under kursen har gett mig de verktyg jag behövt för att genomföra uppgiften.
+
+3.
+    Jag tycker att det är väldigt roligt att programmera och jag gillar verkligen att sitta med skolarbetet, men jag har tagit mig vatten över huvudet så det har varit så svårt att hitta tid att arbeta med detta utan att skämmas över andra åtaganden som jag då försummar.
+    Kursen har varit väldigt bra. Jag tycker den har varit väldigt lärorik och jag känner att det kan bli svårt att gå tillbaka till att inte arbeta OO i framtiden, men det beror såklart på vilket projekt man jobbar med.
+    Kursen har levererat allt jag hade förväntat mig med en OOPython-kurs så jag ser ingen anledning att ge något annat än 10/10.
+
+    Det hade varit kul om man fått lite mer tid med binary search tree fast jag förstår att det är redan tajt som det är att få ihop det med begränsat antal kmom. Sedan så hade jag gärna jobbat i grupp men första gången jag läste kursen så var min kurskamrat rent utsagt helt oduglig, gjorde ingenting och fick mig att ledsna fullständigt, och andra gången så var det mitt eget fel att jag kom in sent för att försöka läsa om kursen då jag hoppade av i samband med att jag förklarade för min gruppmedlem förra året att jag inte ville jobba med denne längre.
+    Något som jag hade uppskattat vore lite fler exempel på UML klassdiagram och rekursiv kod. Skulle inte nödvändigtvis behövas någon genomgång men det hade varit fint att ha lite exempel då jag har haft svårt att begripa framförallt rekursiva funktioner. Kanske tre olika som man kan sitta och mecka lite med för att få lite känsla för det.

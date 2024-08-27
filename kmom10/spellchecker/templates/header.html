@@ -28,9 +28,12 @@
             </div>
             <div id="navbar" class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    <li class="active"><a href="{{ url_for('main') }}">Hem</a></li>
+                    <li class="active"><a href="{{ url_for('main') }}">Reset</a></li>
                     <li class="active"><a href="{{ url_for('all_words') }}">All Words</a></li>
+                    <li class="active"><a href="{{ url_for('prefix_search') }}">Prefix Search</a></li>
+                    <li class="active"><a href="{{ url_for('find_word') }}">Find Word</a></li>
                     <li class="active"><a href="{{ url_for('remove_word') }}">Remove Word</a></li>
+                    <li class="active"><a href="{{ url_for('select_word_list') }}">Change Word List</a></li>
                 </ul>
             </div>
         </div>

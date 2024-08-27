@@ -44,6 +44,7 @@ class TestTrie(unittest.TestCase):
         self.assertTrue(trie.find_word("ANNEX"))
         self.assertTrue(trie.find_word("OuTfIt"))
         self.assertTrue(trie.find_word("   danced "))
+        self.assertFalse(trie.find_word("Billybob"))
 
     def test_remove_word(self):
         "words can be removed from trie"
@@ -79,19 +80,23 @@ class TestTrie(unittest.TestCase):
         "correctly counts words in trie"
         file = "dictionaries/tiny_dictionary.txt"
         trie = Trie.create_from_file(file)
+        trie_empty = Trie()
 
         self.assertEqual(trie.count_words(), 170)
         trie.remove_word("the")
         self.assertEqual(trie.count_words(), 169)
+        self.assertEqual(trie_empty.count_words(), 0)
 
     def test_get_words(self):
         "can get words from trie"
         file = "dictionaries/tiny_dictionary.txt"
         trie = Trie.create_from_file(file)
+        trie_empty = Trie()
 
         trie.add_word("GLASS")
         gotten_words = trie.get_words()
-
+        
+        self.assertEqual(trie_empty.get_words(), [])
         self.assertEqual(len(gotten_words), 171)
         self.assertIn("the", gotten_words)
         self.assertIn("annex", gotten_words)

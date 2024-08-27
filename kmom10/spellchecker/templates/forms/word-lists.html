@@ -1,0 +1,10 @@
+<form role="form" action="{{ url_for('change_word_list') }}" method="POST">
+    <label for="word_list">select word list</label>
+    <select id="word_list" name="word_list">
+        <option value="dictionaries/dictionary.txt">dictionary.txt</option>
+        <option value="dictionaries/frequency.txt">frequency.txt</option>
+        <option value="dictionaries/tiny_dictionary.txt">tiny_dictionary.txt</option>
+        <option value="dictionaries/tiny_frequency.txt">tiny_frequency.txt</option>
+    </select>
+    <button type="submit">Select</button>
+</form>

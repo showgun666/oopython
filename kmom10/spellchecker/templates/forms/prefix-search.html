@@ -1,0 +1,7 @@
+<form role="form" method="POST" action="{{ url_for('prefix_search_trie') }}">
+    <div>
+        <label for="name">Enter text for prefix search:</label>
+        <input type="text" value="{{ input }}" id="word" name="word" maxlength="25">
+    </div>
+    <input type="submit" class="btn btn-default"></input>
+</form>

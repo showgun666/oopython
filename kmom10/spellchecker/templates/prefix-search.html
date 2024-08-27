@@ -4,7 +4,12 @@
     <div class="page-header">
         <h1>Spellchecker</h1>
         <h2>Welcome to Markus's KMOM10 Spellchecker!</h2>
-        
+        <p>prefix search: </p>
+        {% include 'forms/prefix-search.html' %}
+        <p>words: </p>
+        {% for i in prefix_search_words %}
+            <p> {{ i }} </p>
+        {% endfor %}
     </div>
 </div>
 
